@@ -53,7 +53,6 @@ router.post("/", validateLogin, async (req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-  console.log(req);
   const { user } = req;
   if (user) {
     const safeUser = {

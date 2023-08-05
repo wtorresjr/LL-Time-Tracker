@@ -12,6 +12,14 @@ module.exports = {
       client_initials: {
         type: Sequelize.STRING,
       },
+      guardianName: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      guardianPhone: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       hourly_rate: {
         type: Sequelize.DECIMAL,
       },

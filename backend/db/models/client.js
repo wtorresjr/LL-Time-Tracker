@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, Op } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class client extends Model {
     /**
@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      client.hasMany(models.employee, {
+      client.belongsTo(models.employee, {
         foreignKey: "id",
       });
     }
@@ -19,20 +19,48 @@ module.exports = (sequelize, DataTypes) => {
       client_initials: {
         type: DataTypes.STRING,
         validate: {
-          checkLength(val) {
-            if (val.length() > 4 || val.length() < 2) {
-              throw new Error(
-                "Client initials must be between 2 and 4 characters"
-              );
+          len: [2, 4],
+          isUppercase: true,
+        },
+      },
+      guardianName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isAlpha: true,
+        },
+      },
+      guardianPhone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          len: [12, 12],
+          async checkIfUnique(val) {
+            const foundDuplicate = await client.findOne({
+              where: {
+                [Op.and]: {
+                  guardianPhone: val,
+                  client_initials: this.client_initials,
+                },
+              },
+            });
+            if (foundDuplicate) {
+              throw new Error("Cannot create duplicate client");
             }
           },
         },
       },
       hourly_rate: {
         type: DataTypes.DECIMAL,
+        allowNull: false,
+        validate: {
+          isFloat: true,
+        },
       },
       employeeId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { employee, hoursworked, client } = require("../../db/models");
+const { employee, hoursworked, client, Sequelize } = require("../../db/models");
 const { Op } = require("sequelize");
 
 router.get("/", async (req, res) => {
@@ -35,3 +35,5 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
+
+

@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const loginRoute = require("./login");
 const signUpRoute = require("./signup");
-const clientRouter = require("./client-hours");
+const hoursWorkedRouter = require("./hours-worked");
+const addClientRouter = require("./client-data");
 const { restoreUser } = require("../../utils/auth");
 
 router.use(restoreUser);
@@ -10,11 +11,9 @@ router.use("/login", loginRoute);
 
 router.use("/signup", signUpRoute);
 
-router.use("/client-hours", clientRouter);
+router.use("/hours", hoursWorkedRouter);
 
-router.post("/test", (req, res) => {
-  res.json({ requestBody: req.body });
-});
+router.use("/clients", addClientRouter);
 
 router.get("/csrf/restore", (req, res) => {
   const csrfToken = req.csrfToken();
