@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      hoursworked.hasOne(models.client, {
+      hoursworked.hasMany(models.client, {
         foreignKey: "id",
       });
-      hoursworked.hasOne(models.employee, {
+      hoursworked.hasMany(models.employee, {
         foreignKey: "id",
       });
     }
@@ -44,6 +44,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "hoursworked",
+      defaultScope: {
+        attributes: {
+          include: ["day_worked", "start_time", "end_time", "total_hours"],
+        },
+      },
     }
   );
   return hoursworked;

@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       employee.hasMany(models.client, {
         foreignKey: "employeeId",
       });
+      employee.hasMany(models.hoursworked, {
+        foreignKey: "employeeId",
+      });
     }
   }
   employee.init(

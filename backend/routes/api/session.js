@@ -43,11 +43,11 @@ router.post("/", validateLogin, async (req, res, next) => {
     lastName: user.lastName,
   };
 
-  console.log("Safe USER Before", safeUser);
+  // console.log("Safe USER Before", safeUser);
 
   setTokenCookie(res, safeUser);
 
-  console.log("Safe USER After token", safeUser);
+  // console.log("Safe USER After token", safeUser);
   return res.json({
     user: safeUser,
   });

@@ -15,7 +15,7 @@ const seedHours = [
     total_hours: 8.0,
     is_paid: false,
     clientId: 1,
-    employeeId: 4,
+    employeeId: 1,
   },
   {
     day_worked: "2023-08-01",
@@ -24,7 +24,7 @@ const seedHours = [
     total_hours: 5.25,
     is_paid: false,
     clientId: 2,
-    employeeId: 5,
+    employeeId: 2,
   },
   {
     day_worked: "2023-08-01",
@@ -33,7 +33,7 @@ const seedHours = [
     total_hours: 5.25,
     is_paid: false,
     clientId: 3,
-    employeeId: 6,
+    employeeId: 3,
   },
   {
     day_worked: "2023-08-02",
@@ -42,7 +42,7 @@ const seedHours = [
     total_hours: 6.5,
     is_paid: false,
     clientId: 4,
-    employeeId: 4,
+    employeeId: 1,
   },
   {
     day_worked: "2023-08-02",
@@ -51,7 +51,7 @@ const seedHours = [
     total_hours: 4.5,
     is_paid: false,
     clientId: 5,
-    employeeId: 5,
+    employeeId: 2,
   },
   {
     day_worked: "2023-08-02",
@@ -60,7 +60,7 @@ const seedHours = [
     total_hours: 6.5,
     is_paid: false,
     clientId: 6,
-    employeeId: 6,
+    employeeId: 3,
   },
   {
     day_worked: "2023-08-03",
@@ -69,7 +69,7 @@ const seedHours = [
     total_hours: 8.0,
     is_paid: false,
     clientId: 7,
-    employeeId: 4,
+    employeeId: 1,
   },
   {
     day_worked: "2023-08-03",
@@ -78,7 +78,7 @@ const seedHours = [
     total_hours: 4.5,
     is_paid: false,
     clientId: 8,
-    employeeId: 5,
+    employeeId: 2,
   },
   {
     day_worked: "2023-08-03",
@@ -87,7 +87,7 @@ const seedHours = [
     total_hours: 7.25,
     is_paid: false,
     clientId: 9,
-    employeeId: 6,
+    employeeId: 3,
   },
   {
     day_worked: "2023-08-04",
@@ -96,7 +96,7 @@ const seedHours = [
     total_hours: 6.25,
     is_paid: false,
     clientId: 10,
-    employeeId: 4,
+    employeeId: 1,
   },
   {
     day_worked: "2023-08-04",
@@ -105,7 +105,7 @@ const seedHours = [
     total_hours: 5.5,
     is_paid: false,
     clientId: 11,
-    employeeId: 5,
+    employeeId: 2,
   },
   {
     day_worked: "2023-08-04",
@@ -114,7 +114,7 @@ const seedHours = [
     total_hours: 6.25,
     is_paid: false,
     clientId: 12,
-    employeeId: 6,
+    employeeId: 3,
   },
   {
     day_worked: "2023-08-05",
@@ -123,7 +123,7 @@ const seedHours = [
     total_hours: 8.0,
     is_paid: false,
     clientId: 13,
-    employeeId: 4,
+    employeeId: 1,
   },
   {
     day_worked: "2023-08-05",
@@ -132,7 +132,7 @@ const seedHours = [
     total_hours: 3.5,
     is_paid: false,
     clientId: 14,
-    employeeId: 5,
+    employeeId: 2,
   },
   {
     day_worked: "2023-08-05",
@@ -141,7 +141,7 @@ const seedHours = [
     total_hours: 8.5,
     is_paid: false,
     clientId: 15,
-    employeeId: 6,
+    employeeId: 3,
   },
   {
     day_worked: "2023-08-06",
@@ -150,7 +150,7 @@ const seedHours = [
     total_hours: 7.25,
     is_paid: false,
     clientId: 16,
-    employeeId: 4,
+    employeeId: 1,
   },
   {
     day_worked: "2023-08-06",
@@ -159,7 +159,7 @@ const seedHours = [
     total_hours: 6.0,
     is_paid: false,
     clientId: 17,
-    employeeId: 5,
+    employeeId: 2,
   },
   {
     day_worked: "2023-08-06",
@@ -168,7 +168,7 @@ const seedHours = [
     total_hours: 6.25,
     is_paid: false,
     clientId: 18,
-    employeeId: 6,
+    employeeId: 3,
   },
   {
     day_worked: "2023-08-07",
@@ -177,7 +177,7 @@ const seedHours = [
     total_hours: 7.25,
     is_paid: false,
     clientId: 19,
-    employeeId: 4,
+    employeeId: 1,
   },
   {
     day_worked: "2023-08-07",
@@ -186,7 +186,7 @@ const seedHours = [
     total_hours: 4.5,
     is_paid: false,
     clientId: 20,
-    employeeId: 5,
+    employeeId: 2,
   },
   {
     day_worked: "2023-08-07",
@@ -195,7 +195,7 @@ const seedHours = [
     total_hours: 8.5,
     is_paid: false,
     clientId: 21,
-    employeeId: 6,
+    employeeId: 3,
   },
   {
     day_worked: "2023-08-08",
@@ -204,7 +204,7 @@ const seedHours = [
     total_hours: 7.25,
     is_paid: false,
     clientId: 22,
-    employeeId: 4,
+    employeeId: 1,
   },
   {
     day_worked: "2023-08-08",
@@ -213,7 +213,7 @@ const seedHours = [
     total_hours: 6.0,
     is_paid: false,
     clientId: 23,
-    employeeId: 5,
+    employeeId: 2,
   },
 ];
 
