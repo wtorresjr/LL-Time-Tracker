@@ -4,9 +4,8 @@ const bcrypt = require("bcryptjs");
 
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const { Op } = require("sequelize");
 const { setTokenCookie, restoreUser } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { employee } = require("../../db/models");
 
 const validateLogin = [
   check("credential")
@@ -23,13 +22,13 @@ const validateLogin = [
 router.post("/", validateLogin, async (req, res, next) => {
   const { credential, password } = req.body;
 
-  const user = await User.unscoped().findOne({
+  const user = await employee.unscoped().findOne({
     where: {
-        email: credential,
+      email: credential,
     },
   });
 
-  if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
+  if (!user || !bcrypt.compareSync(password, user.password.toString())) {
     const err = new Error("Login failed");
     err.status = 401;
     err.title = "Login failed";
@@ -44,14 +43,18 @@ router.post("/", validateLogin, async (req, res, next) => {
     lastName: user.lastName,
   };
 
-  await setTokenCookie(res, safeUser);
+  console.log("Safe USER Before", safeUser);
 
+  setTokenCookie(res, safeUser);
+
+  console.log("Safe USER After token", safeUser);
   return res.json({
     user: safeUser,
   });
 });
 
 router.get("/", (req, res) => {
+  console.log(req);
   const { user } = req;
   if (user) {
     const safeUser = {
