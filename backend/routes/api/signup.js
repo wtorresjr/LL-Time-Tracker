@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
-const { User } = require("../../db/models");
+const { employee } = require("../../db/models");
 
 const validateSignup = [
   check("email")
@@ -21,10 +21,10 @@ const validateSignup = [
 
 // Sign up
 router.post("", validateSignup, async (req, res) => {
-  const { email, password, username, firstName, lastName } = req.body;
+  const { email, password, firstName, lastName } = req.body;
   const hashedPassword = bcrypt.hashSync(password);
 
-  const user = await User.create({
+  const user = await employee.create({
     email,
     hashedPassword,
     firstName,

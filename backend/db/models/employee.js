@@ -21,15 +21,37 @@ module.exports = (sequelize, DataTypes) => {
     {
       email: {
         type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+        validate: {
+          async checkIfUnique(emailAddy) {
+            const existingUsers = await employee.findOne({
+              where: { email: emailAddy },
+            });
+            if (existingUsers) {
+              throw new Error(
+                "Email already exists, please login with your account or contact admin for help."
+              );
+            }
+          },
+        },
       },
-      password: {
+      hashedPassword: {
         type: DataTypes.STRING,
       },
       firstName: {
         type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isAlpha: true,
+        },
       },
       lastName: {
         type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          isAlpha: true,
+        },
       },
     },
     {

@@ -1,14 +1,14 @@
 const router = require("express").Router();
-const sessionRouter = require("./session");
-const usersRouter = require("./users");
+const loginRoute = require("./login");
+const signUpRoute = require("./signup");
 const clientRouter = require("./client-hours");
 const { restoreUser } = require("../../utils/auth");
 
 router.use(restoreUser);
 
-router.use("/session", sessionRouter);
+router.use("/login", loginRoute);
 
-router.use("/users", usersRouter);
+router.use("/signup", signUpRoute);
 
 router.use("/client-hours", clientRouter);
 

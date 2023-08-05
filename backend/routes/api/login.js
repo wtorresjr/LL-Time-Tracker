@@ -28,7 +28,7 @@ router.post("/", validateLogin, async (req, res, next) => {
     },
   });
 
-  if (!user || !bcrypt.compareSync(password, user.password.toString())) {
+  if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
     const err = new Error("Login failed");
     err.status = 401;
     err.title = "Login failed";
@@ -43,11 +43,10 @@ router.post("/", validateLogin, async (req, res, next) => {
     lastName: user.lastName,
   };
 
-  // console.log("Safe USER Before", safeUser);
 
   setTokenCookie(res, safeUser);
 
-  // console.log("Safe USER After token", safeUser);
+  
   return res.json({
     user: safeUser,
   });
@@ -71,7 +70,7 @@ router.get("/", (req, res) => {
 
 router.delete("/", (_req, res) => {
   res.clearCookie("token");
-  return res.json({ message: "success" });
+  return res.json({ message: "Successfully Logged Out" });
 });
 
 module.exports = router;
