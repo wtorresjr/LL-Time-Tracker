@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      hoursworked.hasMany(models.client, {
-        foreignKey: "id",
+      hoursworked.belongsTo(models.client, {
+        foreignKey: "clientId",
       });
-      hoursworked.hasMany(models.employee, {
-        foreignKey: "id",
+      hoursworked.belongsTo(models.employee, {
+        foreignKey: "employeeId",
       });
     }
   }
@@ -21,24 +21,34 @@ module.exports = (sequelize, DataTypes) => {
     {
       day_worked: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       start_time: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       end_time: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       total_hours: {
         type: DataTypes.DECIMAL,
+        allowNull: false,
+        validate: {
+          isFloat: true,
+        },
       },
       is_paid: {
         type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
       clientId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
       employeeId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {

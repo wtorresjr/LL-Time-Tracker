@@ -5,16 +5,17 @@ const { employee, client } = require("../../db/models");
 router.get("/", async (req, res) => {
   if (req.user) {
     const userId = req.user.id;
-    const usersClients = await client.findAll({
-      where: {
-        employeeId: userId,
+    const usersClients = await employee.findByPk(userId, {
+      include: {
+        model: client,
+        attributes: [
+          "guardianName",
+          "guardianPhone",
+          "client_initials",
+          "hourly_rate",
+        ],
       },
-      attributes: [
-        "guardianName",
-        "guardianPhone",
-        "client_initials",
-        "hourly_rate",
-      ],
+      // attributes: ["firstName", "lastName"],
     });
     res.json(usersClients);
   } else {
