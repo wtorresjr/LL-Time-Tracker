@@ -77,8 +77,8 @@ const seedHours = [
     end_time: "14:15:00",
     total_hours: 4.5,
     is_paid: false,
-    clientId: 8,
-    employeeId: 2,
+    clientId: 4,
+    employeeId: 1,
   },
   {
     day_worked: "2023-08-03",
@@ -203,7 +203,7 @@ const seedHours = [
     end_time: "16:45:00",
     total_hours: 7.25,
     is_paid: false,
-    clientId: 22,
+    clientId: 1,
     employeeId: 1,
   },
   {
@@ -212,7 +212,7 @@ const seedHours = [
     end_time: "15:00:00",
     total_hours: 6.0,
     is_paid: false,
-    clientId: 23,
+    clientId: 2,
     employeeId: 2,
   },
 ];

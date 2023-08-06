@@ -55,9 +55,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "hoursworked",
       defaultScope: {
-        attributes: {
-          include: ["day_worked", "start_time", "end_time", "total_hours"],
-        },
+        attributes: ["day_worked", "start_time", "end_time", "total_hours"],
       },
     }
   );

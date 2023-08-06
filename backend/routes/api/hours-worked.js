@@ -1,15 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { employee, hoursworked, client, Sequelize } = require("../../db/models");
-const { Op } = require("sequelize");
+const { employee, hoursworked, client } = require("../../db/models");
+const { Op, Sequelize } = require("sequelize");
 
 router.get("/", async (req, res) => {
   if (req.user) {
     let { id } = req.user;
     const { dayStart, dayEnd } = req.query;
     const where = {};
-
-    where.employeeId = id;
 
     if (dayStart || dayEnd !== undefined) {
       if (dayStart && dayEnd) {
@@ -25,11 +23,14 @@ router.get("/", async (req, res) => {
       include: {
         model: client,
         attributes: ["client_initials"],
+
         include: {
           model: hoursworked,
           attributes: ["day_worked", "total_hours"],
+          where,
         },
       },
+
       attributes: ["firstName", "lastName"],
     });
 
@@ -38,7 +39,6 @@ router.get("/", async (req, res) => {
     res.status(401).json({ error: "Unauthorized - Login to continue" });
   }
 });
-
 
 //Need to add logic to grab clientId from frontend when user makes a selection from clients drop down menu
 router.post("/add-hours", async (req, res) => {
@@ -50,10 +50,10 @@ router.post("/add-hours", async (req, res) => {
       end_time: end_time,
       total_hours: total_hours,
       is_paid: false,
-      clientId: 13,
+      clientId: 1,
       employeeId: req.user.id,
     });
-    const clientAdded = await client.findByPk(13);
+    const clientAdded = await client.findByPk(1);
     res.json({
       message: `Successfully added hours for ${clientAdded.client_initials}`,
       Day: addedHours.day_worked,
@@ -65,3 +65,17 @@ router.post("/add-hours", async (req, res) => {
 });
 
 module.exports = router;
+// clientHours.clients.forEach((client) => {
+//   client.hoursworkeds.forEach((ele) => {
+//     console.log(ele.total_hours);
+//   });
+// });
+
+// let array = [];
+
+// clientHours.clients.forEach((client) => {
+//   client.hoursworkeds.forEach((ele) => {
+
+//     array.push(ele.total_hours);
+//   });
+// });
