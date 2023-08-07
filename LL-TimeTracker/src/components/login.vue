@@ -1,3 +1,63 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex'; // Import useStore from vuex
+
+// Data properties
+const email = ref('');
+const password = ref('');
+const csrfToken = ref('');
+
+const store = useStore(); // Use the vuex store
+
+// Fetch CSRF token when the component is created
+onMounted(() => {
+  fetchCSRFToken();
+});
+
+// Fetch CSRF token from the server and store it
+const fetchCSRFToken = () => {
+  axios.get('http://localhost:8000/api/csrf/restore', {
+    withCredentials: true,
+  })
+  .then(response => {
+    csrfToken.value = response.data['XSRF-Token'];
+  })
+  .catch(error => {
+    console.error('Error fetching CSRF token:', error);
+  });
+};
+
+// Handle login
+const loginUser = () => {
+  const formData = {
+    credential: email.value,
+    password: password.value,
+  };
+
+  axios.post('http://localhost:8000/api/login', formData, {
+    headers: {
+      'X-CSRF-TOKEN': csrfToken.value,
+    },
+    withCredentials: true,
+  })
+  .then(response => {
+    console.log('Login successful!');
+
+    // Dispatch the setAuthenticated action
+    store.dispatch('setAuthenticated', true);
+
+    router.push('/user-options');
+  })
+  .catch(error => {
+    console.error('Login failed:', error);
+  });
+};
+
+const router = useRouter();
+</script>
+
 <template>
   <h1>Login</h1>
 
@@ -12,60 +72,6 @@
     </form>
   </div>
 </template>
-
-<script>
-import axios from 'axios'
-
-export default {
-  data() {
-    return {
-      email: '',
-      password: '',
-      csrfToken: ''
-    }
-  },
-  created() {
-    // Fetch CSRF token from the server and store it in the Vue instance
-    axios
-      .get('http://localhost:8000/api/csrf/restore')
-
-      .then((response) => {
-        this.csrfToken = response.data.csrfToken
-      })
-      .catch((error) => {
-        console.error('Error fetching CSRF token:', error)
-      })
-  },
-  methods: {
-    loginUser() {
-      const formData = {
-        credential: this.email,
-        password: this.password
-        // Add other form data if needed
-      }
-
-      // Include the CSRF token in the request header
-      axios
-        .post('http://localhost:8000/api/login', formData, {
-          headers: {
-            'X-CSRF-TOKEN': this.csrfToken
-          
-          },
-          withCredentials: true
-        })
-        .then((response) => {
-          // Assuming you receive a success response here,
-          // you can redirect the user to another page or perform other actions.
-          console.log('Login successful!')
-        })
-        .catch((error) => {
-          // Handle error response
-          console.error('Login failed:', error)
-        })
-    }
-  }
-}
-</script>
 
 <style>
 h1 {

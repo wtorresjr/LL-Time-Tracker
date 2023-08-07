@@ -1,15 +1,16 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import login from './components/login.vue'
+
 </script>
 
 <template>
-  <header>
+  <!-- <header>
     <div class="wrapper">
       
       <login />
     </div>
-  </header>
+  </header> -->
 
   <RouterView />
 </template>
