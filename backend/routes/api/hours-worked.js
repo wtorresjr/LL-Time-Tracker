@@ -4,44 +4,70 @@ const { employee, hoursworked, client } = require("../../db/models");
 const { Op, Sequelize } = require("sequelize");
 
 router.get("/", async (req, res) => {
-  if (req.user) {
-    let { id } = req.user;
-    const { dayStart, dayEnd } = req.query;
-    const where = {};
+  try {
+    if (req.user) {
+      let { id } = req.user;
+      const { dayStart, dayEnd } = req.query;
+      const where = {};
 
-    if (dayStart || dayEnd !== undefined) {
-      if (dayStart && dayEnd) {
-        where.day_worked = { [Op.between]: [dayStart, dayEnd] };
-      } else {
-        res
-          .status(401)
-          .json({ error: "You must choose both a start and end date" });
+      if (dayStart || dayEnd !== undefined) {
+        if (dayStart && dayEnd) {
+          where.day_worked = { [Op.between]: [dayStart, dayEnd] };
+        } else {
+          res
+            .status(401)
+            .json({ error: "You must choose both a start and end date" });
+        }
       }
-    }
 
-    let clientHours = await employee.findByPk(id, {
-      include: {
-        model: client,
-        attributes: ["client_initials"],
-
+      let clientHours = await employee.findByPk(id, {
         include: {
-          model: hoursworked,
-          attributes: ["day_worked", "total_hours"],
-          where,
+          model: client,
+          attributes: ["client_initials", "hourly_rate"],
+
+          include: {
+            model: hoursworked,
+            attributes: ["day_worked", "total_hours"],
+            where,
+          },
         },
-      },
+        attributes: ["firstName", "lastName"],
+      });
 
-      attributes: ["firstName", "lastName"],
+      let allPay = 0;
+
+      for (let i = 0; i < clientHours.clients.length; i++) {
+        let client = clientHours.clients[i];
+        let hoursTab = 0;
+        let hourlyRate = clientHours.clients[i].hourly_rate;
+
+        for (let j = 0; j < client.hoursworkeds.length; j++) {
+          let hours = client.hoursworkeds[j].total_hours;
+          hoursTab += hours;
+        }
+        client.setDataValue("TotalClientHours", hoursTab);
+        let payout = (hoursTab * hourlyRate).toFixed(2);
+        allPay += Number(payout);
+        client.setDataValue("Total Pay", Number(payout));
+      }
+      clientHours.setDataValue("All Client Pay", Number(allPay));
+
+      res.status(200).json(clientHours);
+    } else {
+      res.status(401).json({ error: "Unauthorized - Login to continue" });
+    }
+  } catch (err) {
+    const errors = {};
+    err.errors.map((err) => {
+      errors[err.path] = err.message;
     });
-
-    res.json(clientHours);
-  } else {
-    res.status(401).json({ error: "Unauthorized - Login to continue" });
+    return res.status(400).json({ message: "Bad Request", errors });
   }
 });
 
 //Need to add logic to grab clientId from frontend when user makes a selection from clients drop down menu
-router.post("/add-hours", async (req, res) => {
+router.post("/add-hours/:clientId", async (req, res) => {
+  const { clientId } = req.params;
   const { day_worked, start_time, end_time, total_hours } = req.body;
   if (req.user) {
     const addedHours = await hoursworked.create({
@@ -50,10 +76,10 @@ router.post("/add-hours", async (req, res) => {
       end_time: end_time,
       total_hours: total_hours,
       is_paid: false,
-      clientId: 1,
+      clientId: clientId,
       employeeId: req.user.id,
     });
-    const clientAdded = await client.findByPk(1);
+    const clientAdded = await client.findByPk(clientId);
     res.json({
       message: `Successfully added hours for ${clientAdded.client_initials}`,
       Day: addedHours.day_worked,
