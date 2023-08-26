@@ -1,26 +1,27 @@
-// import logo from "./logo.svg";
-import "./App.css";
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import LoginPrompt from "./components/LoginPrompt.js";
-import MainPage from "./components/MainPage.js";
+import EmployeeOptions from "./components/EmployeeOptions.js";
+import "./styles/app.css";
+import MainDisplay from "./components/MainDisplay.js";
 
 function App() {
   return (
-    <div className="App">
-      <Link to="/">Home</Link>
-      <Link to="/login">Login</Link>
-      <Switch>
-        <Route exact path="/">
-          <MainPage />
-        </Route>
-        <Route path="/login">
-          <LoginPrompt />
-        </Route>
-        <Route>
-          <h1>Page Couldn't Be Found</h1>
-        </Route>
-      </Switch>
-    </div>
+    <>
+      <div className="Header">
+          <Switch>
+            <Route exact path="/">
+              <LoginPrompt />
+            </Route>
+            <Route path="/employeeOpts">
+              <EmployeeOptions />
+              <MainDisplay />
+            </Route>
+            <Route>
+              <h1>Page Couldn't Be Found</h1>
+            </Route>
+          </Switch>
+      </div>
+    </>
   );
 }
 

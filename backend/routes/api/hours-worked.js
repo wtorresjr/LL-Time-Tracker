@@ -23,10 +23,12 @@ router.get("/", async (req, res) => {
       let clientHours = await employee.findByPk(id, {
         include: {
           model: client,
+          // required: false,
           attributes: ["client_initials", "hourly_rate"],
 
           include: {
             model: hoursworked,
+            // required: false,
             attributes: ["day_worked", "total_hours"],
             where,
           },
@@ -65,43 +67,31 @@ router.get("/", async (req, res) => {
   }
 });
 
-//Need to add logic to grab clientId from frontend when user makes a selection from clients drop down menu
 router.post("/add-hours/:clientId", async (req, res) => {
   const { clientId } = req.params;
   const { day_worked, start_time, end_time, total_hours } = req.body;
-  if (req.user) {
-    const addedHours = await hoursworked.create({
-      day_worked: day_worked,
-      start_time: start_time,
-      end_time: end_time,
-      total_hours: total_hours,
-      is_paid: false,
-      clientId: clientId,
-      employeeId: req.user.id,
+  try {
+    if (req.user) {
+      const addedHours = await hoursworked.create({
+        day_worked: day_worked,
+        start_time: start_time,
+        end_time: end_time,
+        total_hours: total_hours,
+        clientId: parseInt(clientId),
+        employeeId: req.user.id,
+      });
+      // await addedHours.save();
+      res.json({ newHoursAdded: addedHours });
+    } else {
+      res.status(401).json({ error: "Must be logged in to add hours" });
+    }
+  } catch (err) {
+    const errors = [];
+    err.errors.forEach((er) => {
+      errors.push(er.message);
     });
-    const clientAdded = await client.findByPk(clientId);
-    res.json({
-      message: `Successfully added hours for ${clientAdded.client_initials}`,
-      Day: addedHours.day_worked,
-      Total_Hours: addedHours.total_hours,
-    });
-  } else {
-    res.status(401).json({ error: "Must be logged in to add hours" });
+    res.json(errors);
   }
 });
 
 module.exports = router;
-// clientHours.clients.forEach((client) => {
-//   client.hoursworkeds.forEach((ele) => {
-//     console.log(ele.total_hours);
-//   });
-// });
-
-// let array = [];
-
-// clientHours.clients.forEach((client) => {
-//   client.hoursworkeds.forEach((ele) => {
-
-//     array.push(ele.total_hours);
-//   });
-// });

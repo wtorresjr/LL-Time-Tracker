@@ -21,17 +21,8 @@ app.use(cookieParser());
 app.use(express.json());
 
 if (!isProduction) {
-  app.use(cors({ origin: "http://127.0.0.1:5173/" }));
+  app.use(cors({ origin: "http://localhost:3000/" }));
   app.use(cors({ origin: "http://localhost:8000/" }));
-}
-
-if (!isProduction) {
-  app.use(
-    cors({
-      origin: "http://localhost:5173",
-      credentials: true,
-    })
-  );
 }
 
 app.use(

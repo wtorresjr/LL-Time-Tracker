@@ -20,8 +20,14 @@ module.exports = (sequelize, DataTypes) => {
   hoursworked.init(
     {
       day_worked: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATEONLY,
         allowNull: false,
+        validate: {
+          isDate: {
+            args: true,
+            msg: "day_worked Must be validate format YYYY-MM-DD",
+          },
+        },
       },
       start_time: {
         type: DataTypes.STRING,
@@ -35,12 +41,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DECIMAL,
         allowNull: false,
         validate: {
-          isFloat: true,
+          isFloat: {
+            args: true,
+            msg: `total_hours Must be a decimal`,
+          },
         },
       },
       is_paid: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       clientId: {
         type: DataTypes.INTEGER,

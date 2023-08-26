@@ -1,0 +1,22 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.Header {
+  background-color: lightgray;
+  height: 20vh;
+  display: flex;
+  flex-flow: column nowrap;
+}
+#headContent {
+  height: 20vh;
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+
