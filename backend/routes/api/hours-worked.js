@@ -52,6 +52,8 @@ router.get("/", async (req, res) => {
         allPay += Number(payout);
         client.setDataValue("Total Pay", Number(payout));
       }
+
+      
       clientHours.setDataValue("All Client Pay", Number(allPay));
 
       res.status(200).json(clientHours);

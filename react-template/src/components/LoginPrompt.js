@@ -2,18 +2,15 @@ import { Link } from "react-router-dom";
 
 function LoginPrompt() {
   return (
-    <div id="loginPageDiv">
+    <div className="Header">
       <h1>Lantern Learning Login</h1>
-      <span className="fullWidth">
+      <div id="headContent">
         <input name="credential"></input>
-      </span>
-
-      <span className="fullWidth">
         <input type="password" name="password" id="pwd"></input>
-      </span>
-      <Link to="/employeeOpts">
-        <button id="loginBtn">LOGIN</button>
-      </Link>
+        <Link to="/employeeOpts">
+          <button id="loginBtn">LOGIN</button>
+        </Link>
+      </div>
     </div>
   );
 }
