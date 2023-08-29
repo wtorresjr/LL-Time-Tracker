@@ -82,7 +82,7 @@ router.post("/add-hours/:clientId", async (req, res) => {
         clientId: parseInt(clientId),
         employeeId: req.user.id,
       });
-      // await addedHours.save();
+
       res.json({ newHoursAdded: addedHours });
     } else {
       res.status(401).json({ error: "Must be logged in to add hours" });
