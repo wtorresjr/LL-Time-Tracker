@@ -10,8 +10,7 @@ import Button from "react-bootstrap/Button";
 
 function App() {
   return (
-    <>
-      <div className="Header">
+    <div className="contentContainer">
         <Switch>
           <Route exact path="/">
             <LoginPrompt />
@@ -36,8 +35,7 @@ function App() {
             <h1>Page Couldn't Be Found</h1>
           </Route>
         </Switch>
-      </div>
-    </>
+    </div>
   );
 }
 

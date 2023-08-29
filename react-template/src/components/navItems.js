@@ -1,31 +1,25 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
 function NavItems() {
   return (
-    <>
-      <div className="Header">
-        <div id="headContent">
-          <div className="btnContainer">
-            <Link to="/add-client">
-              <Button variant="primary" size="lg" className="viewHoursBtns">
-                Add New Client
-              </Button>
-            </Link>
-            <Link to="/add-hours">
-              <Button variant="primary" size="lg" className="viewHoursBtns">
-                Add Hours
-              </Button>
-            </Link>
-            <Link to="/view-hours">
-              <Button variant="primary" size="lg" className="viewHoursBtns">
-                View Hours
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </>
+    <div id="navPadding">
+      <NavLink to="/add-client">
+        <Button variant="warning" size="lg">
+          Add Client
+        </Button>
+      </NavLink>
+      <NavLink to="/add-hours">
+        <Button variant="warning" size="lg">
+          Add Hours
+        </Button>
+      </NavLink>
+      <NavLink to="/view-hours">
+        <Button variant="warning" size="lg">
+          View Hours
+        </Button>
+      </NavLink>
+    </div>
   );
 }
 
