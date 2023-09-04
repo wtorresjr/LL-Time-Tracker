@@ -3,7 +3,7 @@
 const ViewHours = () => {
   return (
     <div>
-      {console.log(userHours)}
+      {/* {console.log(userHours)} */}
       <h1>View Hours Page</h1>
     </div>
   );

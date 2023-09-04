@@ -30,13 +30,12 @@ const AddHours = () => {
     setTotalHours("");
   };
 
+  //Client dropdown will be populated by mapping through user clients when logged in
   return (
     <form onSubmit={onSubmit}>
       <h1>Add Hours</h1>
 
       <InputGroup size="lg">
-        //Client dropdown will be populated by mapping through user clients when
-        logged in
         <Form.Select
           size="lg"
           onChange={(e) => setClientInitials(e.target.value)}
