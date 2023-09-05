@@ -8,7 +8,7 @@ const AddHours = () => {
   const [workDate, setWorkDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [totalHours, setTotalHours] = useState(0);
+  const [totalHours, setTotalHours] = useState("");
   const [theErrors, setErrors] = useState({});
   const [disabledBtn, setDisabledBtn] = useState(true);
 
@@ -47,13 +47,14 @@ const AddHours = () => {
     e.preventDefault();
 
     const clientHoursWorked = {
-      clientInitials,
-      workDate,
-      startTime,
-      endTime,
-      totalHours,
+      clientInitials: clientInitials,
+      workDate: workDate,
+      startTime: startTime,
+      endTime: endTime,
+      totalHours: totalHours,
     };
 
+    console.log(clientHoursWorked);
     setClientInitials("");
     setWorkDate("");
     setStartTime("");

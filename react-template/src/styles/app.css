@@ -21,15 +21,14 @@ body {
 }
 
 .warningPtag {
-  color: red;
+  color: white;
   font-weight: bolder;
   width: 100%;
-  /* padding:0px;
-  margin:0px; */
   text-align: center;
-  background-color:black;
+  background-color: red;
   border-radius: 10px;
 }
+
 
 .active Button {
   background-color: orangered;
