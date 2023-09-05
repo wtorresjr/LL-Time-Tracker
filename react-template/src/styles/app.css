@@ -20,6 +20,17 @@ body {
   border-radius: 10px;
 }
 
+.warningPtag {
+  color: red;
+  font-weight: bolder;
+  width: 100%;
+  padding:0px;
+  margin:0px;
+  text-align: center;
+  background-color:black;
+  border-radius: 10px;
+}
+
 .active Button {
   background-color: orangered;
   color: white;

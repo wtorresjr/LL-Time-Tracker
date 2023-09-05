@@ -1,13 +1,36 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AddNewClient = () => {
   const [guardianName, setGuardianName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [clientInitials, setClientInitials] = useState("");
   const [hourlyRate, setHourlyRate] = useState("");
+  const [theErrors, setErrors] = useState({});
+  const [disabledBtn, setDisabledBtn] = useState(true);
+
+  const errors = {};
+
+  useEffect(() => {
+    if (guardianName.length === 0)
+      errors.guardianName = "Guardian Name is required";
+    if (telephone.length === 0) errors.telephone = "Telephone is required";
+    if (clientInitials.length === 0)
+      errors.clientInitials = "Client initials are required";
+    if (hourlyRate.length === 0) errors.hourlyRate = "Hourly rate is required";
+    setErrors(errors);
+
+    if (
+      !errors.guardianName &&
+      !errors.telephone &&
+      !errors.clientInitials &&
+      !errors.hourlyRate
+    ) {
+      setDisabledBtn(false);
+    }
+  }, [guardianName, telephone, clientInitials, hourlyRate]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -35,13 +58,16 @@ const AddNewClient = () => {
           Guardian Name
         </InputGroup.Text>
         <Form.Control
-          pattern="[a-Z]{2}"
+          pattern="[A-Za-z]{2,35}"
           aria-label="Large"
           aria-describedby="inputGroup-sizing-sm"
           value={guardianName}
           onChange={(e) => setGuardianName(e.target.value)}
           required
         />
+        {theErrors.guardianName && (
+          <p className="warningPtag">{theErrors.guardianName}</p>
+        )}
       </InputGroup>
       <InputGroup size="lg">
         <InputGroup.Text id="inputGroup-sizing-lg">Phone</InputGroup.Text>
@@ -55,6 +81,9 @@ const AddNewClient = () => {
           onChange={(e) => setTelephone(e.target.value)}
           required
         />
+        {theErrors.telephone && (
+          <p className="warningPtag">{theErrors.telephone}</p>
+        )}
       </InputGroup>
       <InputGroup size="lg">
         <InputGroup.Text id="inputGroup-sizing-lg">
@@ -66,9 +95,12 @@ const AddNewClient = () => {
           pattern="[A-Z]{2,3}"
           value={clientInitials}
           onChange={(e) => setClientInitials(e.target.value)}
-          placeholder="All capital letters 3 characters max"
+          placeholder="All capital letters 3 character max"
           required
         />
+        {theErrors.clientInitials && (
+          <p className="warningPtag">{theErrors.clientInitials}</p>
+        )}
       </InputGroup>
       <InputGroup className="mb-3" size="lg">
         <InputGroup.Text>Hourly Rate</InputGroup.Text>
@@ -81,9 +113,17 @@ const AddNewClient = () => {
           placeholder="example: 20.00"
           required
         />
+        {theErrors.hourlyRate && (
+          <p className="warningPtag">{theErrors.hourlyRate}</p>
+        )}
       </InputGroup>
       <div className="d-grid gap-2">
-        <Button variant="primary" size="lg" type="submit">
+        <Button
+          variant="primary"
+          size="lg"
+          type="submit"
+          disabled={disabledBtn}
+        >
           Submit
         </Button>
       </div>
