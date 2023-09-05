@@ -35,7 +35,7 @@ function LoginPrompt() {
               // onChange={(e) => setPassword(e.target.value)}
             />
           </InputGroup>
-          <Link to="/employeeOpts">
+          <Link to="/view-hours">
             <div className="d-grid gap-2">
               <Button variant="primary" size="lg">
                 Login

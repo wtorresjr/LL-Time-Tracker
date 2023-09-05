@@ -14,12 +14,12 @@ const AddNewClient = () => {
   const errors = {};
 
   useEffect(() => {
-    if (guardianName.length === 0)
+    if (guardianName.length < 2)
       errors.guardianName = "Guardian Name is required";
-    if (telephone.length === 0) errors.telephone = "Telephone is required";
-    if (clientInitials.length === 0)
+    if (telephone.length < 12) errors.telephone = "Telephone is required";
+    if (clientInitials.length < 2)
       errors.clientInitials = "Client initials are required";
-    if (hourlyRate.length === 0) errors.hourlyRate = "Hourly rate is required";
+    if (hourlyRate.length < 4) errors.hourlyRate = "Hourly rate is required";
     setErrors(errors);
 
     if (
@@ -124,7 +124,7 @@ const AddNewClient = () => {
           type="submit"
           disabled={disabledBtn}
         >
-          Submit
+          Create New Client
         </Button>
       </div>
     </form>
