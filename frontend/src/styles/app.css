@@ -10,8 +10,16 @@ body {
   justify-items: center;
   box-sizing: border-box;
   background-color: rgb(37, 37, 37);
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
 .contentContainer * {
   margin: 10px 0 10px 0;
   padding: 10px;
@@ -28,7 +36,6 @@ body {
   background-color: red;
   border-radius: 10px;
 }
-
 
 .active Button {
   background-color: orangered;

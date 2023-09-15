@@ -6,7 +6,7 @@ import AddNewClient from "./components/AddNewClient.js";
 import ViewHours from "./components/ViewHours.js";
 import "./styles/app.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 
 function App() {
   return (

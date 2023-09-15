@@ -3,15 +3,34 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { csrfFetch, restoreCSRF } from "../store/csrf";
 
 function LoginPrompt() {
-  // const [credential, setCredential] = useState("");
-  // const [password, setPassword] = useState("");
+  const [credential, setCredential] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(csrfFetch());
+  }, [dispatch]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const userCred = {
+      credential: credential,
+      password: password,
+    };
+
+
+    // dispatch(checkUserCred(userCred));
+    // console.log("submit hit");
+  };
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Container className="contentContainer" fluid="md">
           <h1>Lantern Learning Login</h1>
           <InputGroup size="lg">
@@ -19,8 +38,8 @@ function LoginPrompt() {
             <Form.Control
               aria-label="Email"
               aria-describedby="inputGroup-sizing-sm"
-              // value={credential}
-              // onChange={(e) => setCredential(e.target.value)}
+              value={credential}
+              onChange={(e) => setCredential(e.target.value)}
             />
           </InputGroup>
           <InputGroup size="lg">
@@ -31,17 +50,15 @@ function LoginPrompt() {
               aria-label="password"
               aria-describedby="inputGroup-sizing-sm"
               type="password"
-              // value={password}
-              // onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </InputGroup>
-          <Link to="/view-hours">
-            <div className="d-grid gap-2">
-              <Button variant="primary" size="lg">
-                Login
-              </Button>
-            </div>
-          </Link>
+          <div className="d-grid gap-2">
+            <Button variant="primary" size="lg" type="submit">
+              Login
+            </Button>
+          </div>
         </Container>
       </form>
     </>
