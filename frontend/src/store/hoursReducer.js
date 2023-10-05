@@ -7,16 +7,6 @@ export const loadHours = (employeehours) => {
   };
 };
 
-export const fetchHours = () => async (dispatch) => {
-  const response = await fetch("/api/hours");
-  const employeehours = await response.json();
-
-  if (response.ok) {
-    dispatch(loadHours(employeehours));
-  } else {
-    console.log(response.statusText);
-  }
-};
 
 const initialState = { entries: [], isLoading: true };
 

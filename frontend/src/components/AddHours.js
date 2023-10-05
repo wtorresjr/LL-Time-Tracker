@@ -2,13 +2,15 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const AddHours = () => {
+  const sessionUser = useSelector((state) => state?.session?.user);
   const [clientInitials, setClientInitials] = useState("");
   const [workDate, setWorkDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [totalHours, setTotalHours] = useState("");
+  const [totalHours, setTotalHours] = useState(0);
   const [theErrors, setErrors] = useState({});
   const [disabledBtn, setDisabledBtn] = useState(true);
 
@@ -63,6 +65,7 @@ const AddHours = () => {
   };
 
   //Client dropdown will be populated by mapping through user clients when logged in
+
   return (
     <form onSubmit={onSubmit}>
       <h1>Add Hours</h1>
@@ -153,5 +156,4 @@ const AddHours = () => {
     </form>
   );
 };
-
 export default AddHours;

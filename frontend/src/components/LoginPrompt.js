@@ -3,29 +3,33 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
+import { Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { csrfFetch, restoreCSRF } from "../store/csrf";
+import * as sessionActions from "../store/session";
+import { useSelector } from "react-redux";
 
 function LoginPrompt() {
+  const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
+  const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    dispatch(csrfFetch());
-  }, [dispatch]);
+  // useEffect(() => {}, [dispatch]);
+
+  if (sessionUser) return <Redirect to="/add-hours" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userCred = {
-      credential: credential,
-      password: password,
-    };
-
-
-    // dispatch(checkUserCred(userCred));
-    // console.log("submit hit");
+    setErrors({});
+    return dispatch(sessionActions.login({ credential, password })).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      }
+    );
   };
 
   return (
@@ -33,6 +37,11 @@ function LoginPrompt() {
       <form onSubmit={handleSubmit}>
         <Container className="contentContainer" fluid="md">
           <h1>Lantern Learning Login</h1>
+          {errors && (
+            <h5 style={{ textAlign: "center", color: "red" }}>
+              {errors.credential}
+            </h5>
+          )}
           <InputGroup size="lg">
             <InputGroup.Text id="inputGroup-sizing-lg">Email</InputGroup.Text>
             <Form.Control
