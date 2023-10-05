@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 const LOAD_HOURS = "hours/loadhours";
 
 export const loadHours = (employeehours) => {
@@ -7,13 +9,23 @@ export const loadHours = (employeehours) => {
   };
 };
 
+export const fetchHours = (employeeId) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/hours`);
+    const userHours = await response.json();
+    dispatch(loadHours(userHours));
+    return userHours;
+  } catch (err) {
+    throw err;
+  }
+};
 
-const initialState = { entries: [], isLoading: true };
+const initialState = {};
 
 const hoursReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_HOURS:
-      return { ...state, entries: [...action.employeehours] };
+      return { ...state, userHours: { ...action.employeehours } };
     default:
       return state;
   }

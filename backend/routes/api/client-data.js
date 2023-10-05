@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
       include: {
         model: client,
         attributes: [
+          "id",
           "guardianName",
           "guardianPhone",
           "client_initials",

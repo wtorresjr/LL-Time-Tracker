@@ -2,8 +2,11 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addNewClient } from "../store/clientReducer";
 
 const AddNewClient = () => {
+  const dispatch = useDispatch();
   const [guardianName, setGuardianName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [clientInitials, setClientInitials] = useState("");
@@ -38,11 +41,13 @@ const AddNewClient = () => {
     const newClientObj = {
       guardianName: guardianName,
       guardianPhone: telephone,
-      client_initials: clientInitials,
-      hourly_rate: hourlyRate,
+      initials: clientInitials,
+      hourlyRate: hourlyRate,
     };
 
-    console.log(newClientObj);
+    console.log(newClientObj, "Client Object");
+
+    dispatch(addNewClient(newClientObj));
 
     setGuardianName("");
     setTelephone("");

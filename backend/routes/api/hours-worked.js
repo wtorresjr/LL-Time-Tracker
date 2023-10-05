@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
         include: {
           model: client,
           // required: false,
-          attributes: ["client_initials", "hourly_rate"],
+          attributes: ["id", "client_initials", "hourly_rate"],
 
           include: {
             model: hoursworked,
@@ -53,7 +53,6 @@ router.get("/", async (req, res) => {
         client.setDataValue("Total Pay", Number(payout));
       }
 
-      
       clientHours.setDataValue("All Client Pay", Number(allPay));
 
       res.status(200).json(clientHours);
