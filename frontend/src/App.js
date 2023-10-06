@@ -22,14 +22,10 @@ function App() {
 
   return (
     <div className="contentContainer">
-      <EmployeeOptions />
+      {sessionUser && <EmployeeOptions />}
       <Switch>
         <Route exact path="/">
-          {(sessionUser && <LoginPrompt />) || (
-            <h1>
-              <NavLink to="/">Log In</NavLink>
-            </h1>
-          )}
+          <LoginPrompt />
         </Route>
         <Route exact path="/add-client">
           {(sessionUser && <AddNewClient />) || (

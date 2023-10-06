@@ -29,9 +29,6 @@ module.exports = (sequelize, DataTypes) => {
       guardianName: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          isAlpha: true,
-        },
       },
       guardianPhone: {
         type: DataTypes.STRING,
