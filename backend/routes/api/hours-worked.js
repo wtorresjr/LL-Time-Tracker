@@ -70,6 +70,7 @@ router.get("/", async (req, res) => {
 
 router.post("/add-hours/:clientId", async (req, res) => {
   const { clientId } = req.params;
+
   const { day_worked, start_time, end_time, total_hours } = req.body;
   try {
     if (req.user) {

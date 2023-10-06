@@ -2,10 +2,17 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchClientList } from "../store/clientReducer";
+import { addHoursForClient } from "../store/hoursReducer";
+import CreatedClient from "./CreatedClient";
 
 const AddHours = () => {
-  const sessionUser = useSelector((state) => state?.session?.user);
+  // const sessionUser = useSelector((state) => state?.session?.user);
+  const userClients = useSelector(
+    (state) => state?.clientList?.clients?.clients
+  );
+  const dispatch = useDispatch();
   const [clientInitials, setClientInitials] = useState("");
   const [workDate, setWorkDate] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -13,14 +20,20 @@ const AddHours = () => {
   const [totalHours, setTotalHours] = useState(0);
   const [theErrors, setErrors] = useState({});
   const [disabledBtn, setDisabledBtn] = useState(true);
+  const [submittedData, setSubmittedData] = useState(null);
+  const [clientPicked, setClientPicked] = useState(null);
 
   const errors = {};
+
+  useEffect(() => {
+    dispatch(fetchClientList());
+  }, [dispatch]);
 
   useEffect(() => {
     if (workDate.length === 0) errors.workDate = "Work date is required";
     if (startTime.length === 0) errors.startTime = "Start time is required";
     if (endTime.length === 0) errors.endTime = "End time is required";
-    if (clientInitials.length === 0)
+    if (clientPicked === null || clientPicked === "")
       errors.clientInitials = "Client is required";
     setErrors(errors);
 
@@ -32,7 +45,7 @@ const AddHours = () => {
     ) {
       setDisabledBtn(false);
     }
-  }, [workDate, startTime, endTime, clientInitials]);
+  }, [workDate, startTime, endTime, clientInitials, clientPicked]);
 
   useEffect(() => {
     let [startHour, startMins] = startTime.split(":");
@@ -45,18 +58,23 @@ const AddHours = () => {
     setTotalHours(Math.abs(hours.toFixed(2)));
   }, [startTime, endTime]);
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const clientHoursWorked = {
-      clientInitials: clientInitials,
-      workDate: workDate,
-      startTime: startTime,
-      endTime: endTime,
-      totalHours: totalHours,
+      day_worked: workDate,
+      start_time: startTime,
+      end_time: endTime,
+      total_hours: totalHours,
     };
 
-    console.log(clientHoursWorked);
+    if (clientHoursWorked) {
+      console.log(clientPicked, "client picked");
+      dispatch(addHoursForClient(clientHoursWorked, +clientPicked));
+      setSubmittedData(clientHoursWorked);
+      // console.log(submittedData, "Submitted Data From State");
+    }
+
     setClientInitials("");
     setWorkDate("");
     setStartTime("");
@@ -64,22 +82,30 @@ const AddHours = () => {
     setTotalHours("");
   };
 
-  //Client dropdown will be populated by mapping through user clients when logged in
-
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <h1>Add Hours</h1>
+      {submittedData && (
+        <CreatedClient submittedData={submittedData} infoType={"addHours"} />
+      )}
 
       <InputGroup size="lg">
         <Form.Select
           size="lg"
-          onChange={(e) => setClientInitials(e.target.value)}
-          value={clientInitials}
+          onChange={(e) => {
+            setClientPicked(parseInt(e.target.value));
+          }}
+          value={clientPicked}
           required
         >
           <option value="">Choose Client</option>
-          <option value="EE">EE</option>
-          <option value="MG">MG</option>
+          {userClients?.map((client) => {
+            return (
+              <option key={client?.id} value={client?.id}>
+                {client?.client_initials}
+              </option>
+            );
+          })}
         </Form.Select>
         {theErrors.clientInitials && (
           <p className="warningPtag">{theErrors.clientInitials}</p>

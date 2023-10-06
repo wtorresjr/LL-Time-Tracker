@@ -2,16 +2,13 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { addNewClient } from "../store/clientReducer";
-import OpenModalButton from "../components/OpenModalButton/index";
-import { Modal } from "../context/modal";
-import { useModal } from "../context/modal";
-import InfoModal from "./OpenModalButton/InfoModal";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewClient, fetchClientList } from "../store/clientReducer";
 import CreatedClient from "./CreatedClient";
 
 const AddNewClient = () => {
   const dispatch = useDispatch();
+  const userClients = useSelector((state) => state?.clientList?.clients?.clients);
   const [guardianName, setGuardianName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [clientInitials, setClientInitials] = useState("");
@@ -21,6 +18,10 @@ const AddNewClient = () => {
   const [submittedData, setSubmittedData] = useState(null);
 
   const errors = {};
+
+  useEffect(() => {
+    dispatch(fetchClientList());
+  }, [dispatch]);
 
   useEffect(() => {
     if (guardianName.length < 2)
@@ -63,7 +64,9 @@ const AddNewClient = () => {
 
   return (
     <div>
-      {submittedData && <CreatedClient submittedData={submittedData} />}
+      {submittedData && (
+        <CreatedClient submittedData={submittedData} infoType={"addClient"} />
+      )}
       <form onSubmit={onSubmit}>
         <h1>Add New Client Page</h1>
         <InputGroup size="lg">
