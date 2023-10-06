@@ -50,10 +50,10 @@ router.get("/", async (req, res) => {
         client.setDataValue("TotalClientHours", hoursTab);
         let payout = (hoursTab * hourlyRate).toFixed(2);
         allPay += Number(payout);
-        client.setDataValue("Total Pay", Number(payout));
+        client.setDataValue("Total_Pay", Number(payout));
       }
 
-      clientHours.setDataValue("All Client Pay", Number(allPay));
+      clientHours.setDataValue("All_Client_Pay", Number(allPay));
 
       res.status(200).json(clientHours);
     } else {

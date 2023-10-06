@@ -2,7 +2,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
@@ -27,8 +27,21 @@ body {
   border-radius: 10px;
 }
 
+.clientSelectorDiv {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+.clientSelectorDiv button,
+select {
+  flex: 1;
+}
 
-
+.clientSelectorDiv button {
+  background-color: black;
+  color: white;
+  font-weight: bolder;
+}
 
 .warningPtag {
   color: white;
@@ -53,7 +66,6 @@ body {
   height: 15vh;
 }
 
-
 #logOutBtn {
   z-index: 9999;
   color: white;
@@ -63,4 +75,66 @@ body {
   box-sizing: border-box;
   margin: 0 auto;
   background-color: black;
+}
+
+.hoursListDiv {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.hoursContain {
+  border: 1px solid black;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0 25px;
+}
+.dayWorkedContain {
+  flex: 1 1 calc(20% - 10px);
+  background-color: black;
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+  text-align: center;
+}
+.dayWorkedContain p {
+  background-color: black;
+  border-top: 1px solid rgb(141, 141, 141);
+  border-bottom: 1px solid rgb(141, 141, 141);
+  border-radius: 0;
+}
+
+.totalPayContain {
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  text-align: right;
+  justify-content: right;
+  align-items: right;
+}
+
+.totalPayContain p {
+  background-color: black;
+  color: white;
+  font-weight: bolder;
+  font-size: 20px;
+  /* width: 50%; */
+}
+
+.clientInfoDiv {
+  font-size: 20px;
+  font-weight: bolder;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.clientInfoDiv p {
+  background-color: inherit;
+  padding: 0px;
+}
+
+#allPayForClient {
+  color: white;
+  font-weight: bolder;
+  background-color: green;
 }
