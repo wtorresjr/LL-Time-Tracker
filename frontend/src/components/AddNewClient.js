@@ -5,10 +5,13 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewClient, fetchClientList } from "../store/clientReducer";
 import CreatedClient from "./CreatedClient";
+import "../styles/app.css";
 
 const AddNewClient = () => {
   const dispatch = useDispatch();
-  const userClients = useSelector((state) => state?.clientList?.clients?.clients);
+  const userClients = useSelector(
+    (state) => state?.clientList?.clients?.clients
+  );
   const [guardianName, setGuardianName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [clientInitials, setClientInitials] = useState("");
@@ -63,13 +66,15 @@ const AddNewClient = () => {
   };
 
   return (
-    <div>
-      {submittedData && (
-        <CreatedClient submittedData={submittedData} infoType={"addClient"} />
-      )}
-      <form onSubmit={onSubmit}>
+    <div className="generalContainer">
+      <div className="titleHeaders">
         <h1>Add New Client Page</h1>
-        <InputGroup size="lg">
+      </div>
+      <form onSubmit={onSubmit}>
+        {submittedData && (
+          <CreatedClient submittedData={submittedData} infoType={"addClient"} />
+        )}
+        <InputGroup size="lg" className="genInputs">
           <InputGroup.Text id="inputGroup-sizing-lg">
             Guardian Name
           </InputGroup.Text>
@@ -81,11 +86,11 @@ const AddNewClient = () => {
             onChange={(e) => setGuardianName(e.target.value)}
             required
           />
-          {theErrors.guardianName && (
-            <p className="warningPtag">{theErrors.guardianName}</p>
-          )}
         </InputGroup>
-        <InputGroup size="lg">
+        {theErrors.guardianName && (
+          <p className="warningPtag">{theErrors.guardianName}</p>
+        )}
+        <InputGroup size="lg" className="genInputs">
           <InputGroup.Text id="inputGroup-sizing-lg">Phone</InputGroup.Text>
           <Form.Control
             aria-label="Large"
@@ -97,11 +102,11 @@ const AddNewClient = () => {
             onChange={(e) => setTelephone(e.target.value)}
             required
           />
-          {theErrors.telephone && (
-            <p className="warningPtag">{theErrors.telephone}</p>
-          )}
         </InputGroup>
-        <InputGroup size="lg">
+        {theErrors.telephone && (
+          <p className="warningPtag">{theErrors.telephone}</p>
+        )}
+        <InputGroup size="lg" className="genInputs">
           <InputGroup.Text id="inputGroup-sizing-lg">
             Client Initials
           </InputGroup.Text>
@@ -114,11 +119,11 @@ const AddNewClient = () => {
             placeholder="All capital letters 3 character max"
             required
           />
-          {theErrors.clientInitials && (
-            <p className="warningPtag">{theErrors.clientInitials}</p>
-          )}
         </InputGroup>
-        <InputGroup className="mb-3" size="lg">
+        {theErrors.clientInitials && (
+          <p className="warningPtag">{theErrors.clientInitials}</p>
+        )}
+        <InputGroup className="genInputs" size="lg">
           <InputGroup.Text>Hourly Rate</InputGroup.Text>
           <InputGroup.Text>$</InputGroup.Text>
           <Form.Control
@@ -129,10 +134,10 @@ const AddNewClient = () => {
             placeholder="example: 20.00"
             required
           />
-          {theErrors.hourlyRate && (
-            <p className="warningPtag">{theErrors.hourlyRate}</p>
-          )}
         </InputGroup>
+        {theErrors.hourlyRate && (
+          <p className="warningPtag">{theErrors.hourlyRate}</p>
+        )}
         <div className="d-grid gap-2">
           <Button
             variant="primary"

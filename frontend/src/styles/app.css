@@ -3,143 +3,86 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  justify-items: center;
-  box-sizing: border-box;
-  background-color: #252525; /* Dark background color */
-
-  /* Hide scrollbar for IE, Edge, and Firefox */
-
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  /* background-color: black; */
 }
-
 ::-webkit-scrollbar {
   display: none;
 }
 
-.contentContainer * {
-  margin: 10px 0 10px 0;
-  padding: 10px;
-  box-sizing: border-box;
-  background-color: #ffe4c4; /* Bisque */
-  border-radius: 10px;
-}
-
-.clientSelectorDiv {
+.loginContainer {
   display: flex;
-  gap: 20px;
-  justify-content: space-between;
-}
-
-.clientSelectorDiv button,
-select {
-  flex: 1;
-}
-
-.clientSelectorDiv button {
-  background-color: #000; /* Black */
-  color: #fff; /* White */
-  font-weight: bolder;
-}
-
-.warningPtag {
-  color: #fff; /* White */
-  font-weight: bolder;
-  width: 20%;
+  justify-content: center;
+  align-items: center;
+  margin: 150px 0 0 0;
   text-align: center;
-  background-color: #ff0000; /* Red */
-  border-radius: 10px;
+}
+.genInputs {
+  margin: 20px 0 0 0;
+  /* width: 90%; */
 }
 
-.active Button {
-  background-color: #ff4500; /* Orangered */
-  color: #fff; /* White */
+.generalContainer {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0 0 0;
+  flex-flow: row wrap;
+  /* width:90%; */
 }
 
-#navPadding {
+.d-grid {
   margin: 20px 0 0 0;
 }
 
-#navPadding Button {
-  width: 25vw;
-  height: 15vh;
-}
-
-#logOutBtn {
-  z-index: 9999;
-  color: #fff; /* White */
-  font-weight: bold;
-  width: 98%;
-  padding: 0 auto;
-  box-sizing: border-box;
-  margin: 0 auto;
-  background-color: #000; /* Black */
-}
-
-.hoursListDiv {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.hoursContain {
-  border: 1px solid #000; /* Black */
-  display: flex;
-  flex-flow: row wrap;
-  gap: 0 25px;
-}
-
-.dayWorkedContain {
-  flex: 1 1 calc(20% - 10px);
-  background-color: #000; /* Black */
-  color: #fff; /* White */
-  font-size: 20px;
+.warningPtag {
+  color: red;
   font-weight: bolder;
   text-align: center;
 }
-
-.dayWorkedContain p {
-  background-color: #000; /* Black */
-  border-top: 1px solid #8d8d8d; /* Light gray */
-  border-bottom: 1px solid #8d8d8d; /* Light gray */
-  border-radius: 0;
+form {
+  width: 90%;
 }
 
-.totalPayContain {
-  width: 100%;
+#allClientPayDiv {
+  margin: 20px 0 0 0;
+  background-color: green;
+  height: 40px;
   display: flex;
-  flex-flow: column wrap;
-  text-align: right;
-  justify-content: right;
-  align-items: right;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bolder;
+  border-radius: 90px;
 }
 
-.totalPayContain p {
-  background-color: #000; /* Black */
-  color: #fff; /* White */
+.accHeader {
+  display: flex;
   font-weight: bolder;
-  font-size: 20px;
+  justify-content: space-between;
 }
 
-.clientInfoDiv {
-  font-size: 20px;
-  font-weight: bolder;
-  background-color: #000; /* Black */
-  color: #fff; /* White */
-  width: 100%;
+.hrsDisplayRow {
+  display: flex;
+  align-items: center;
+}
+
+.hrsDisplayRow td {
+  flex: 1;
+}
+
+.hourlynPayDiv {
   display: flex;
   justify-content: space-between;
 }
 
-.clientInfoDiv p {
-  background-color: inherit;
-  padding: 0px;
-}
-
-#allPayForClient {
-  color: #fff; /* White */
-  font-weight: bolder;
-  background-color: #008000; /* Green */
+.titleHeaders {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  width: 90%;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

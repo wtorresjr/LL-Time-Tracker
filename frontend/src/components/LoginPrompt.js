@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
 import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
 import { Redirect } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { csrfFetch, restoreCSRF } from "../store/csrf";
+
 import * as sessionActions from "../store/session";
 import { useSelector } from "react-redux";
 
@@ -16,8 +16,6 @@ function LoginPrompt() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-
-  // useEffect(() => {}, [dispatch]);
 
   if (sessionUser) return <Redirect to="/add-hours" />;
 
@@ -33,36 +31,46 @@ function LoginPrompt() {
   };
 
   return (
-    <>
+    <div className="loginContainer">
       <form onSubmit={handleSubmit}>
         <Container className="contentContainer" fluid="md">
           <h1>Lantern Learning Login</h1>
-          {errors && (
-            <h5 style={{ textAlign: "center", color: "red" }}>
-              {errors.credential}
-            </h5>
-          )}
-          <InputGroup size="lg">
-            <InputGroup.Text id="inputGroup-sizing-lg">Email</InputGroup.Text>
+
+          <FloatingLabel
+            controlId="floatingInput"
+            label="Email address"
+            className="genInputs"
+          >
             <Form.Control
-              aria-label="Email"
-              aria-describedby="inputGroup-sizing-sm"
+              type="email"
+              placeholder="name@example.com"
               value={credential}
               onChange={(e) => setCredential(e.target.value)}
             />
-          </InputGroup>
-          <InputGroup size="lg">
-            <InputGroup.Text id="inputGroup-sizing-lg">
-              Password
-            </InputGroup.Text>
+          </FloatingLabel>
+          <FloatingLabel
+            controlId="floatingPassword"
+            label="Password"
+            className="genInputs"
+          >
             <Form.Control
-              aria-label="password"
-              aria-describedby="inputGroup-sizing-sm"
               type="password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-          </InputGroup>
+          </FloatingLabel>
+          {errors && (
+            <h5
+              style={{
+                textAlign: "center",
+                color: "red",
+                margin: "20px 0 20px 0",
+              }}
+            >
+              {errors.credential}
+            </h5>
+          )}
           <div className="d-grid gap-2">
             <Button variant="primary" size="lg" type="submit">
               Login
@@ -70,7 +78,7 @@ function LoginPrompt() {
           </div>
         </Container>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -8,7 +8,6 @@ import { addHoursForClient } from "../store/hoursReducer";
 import CreatedClient from "./CreatedClient";
 
 const AddHours = () => {
-  // const sessionUser = useSelector((state) => state?.session?.user);
   const userClients = useSelector(
     (state) => state?.clientList?.clients?.clients
   );
@@ -21,7 +20,7 @@ const AddHours = () => {
   const [theErrors, setErrors] = useState({});
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [submittedData, setSubmittedData] = useState(null);
-  const [clientPicked, setClientPicked] = useState(null);
+  const [clientPicked, setClientPicked] = useState('');
 
   const errors = {};
 
@@ -72,7 +71,6 @@ const AddHours = () => {
       console.log(clientPicked, "client picked");
       dispatch(addHoursForClient(clientHoursWorked, +clientPicked));
       setSubmittedData(clientHoursWorked);
-      // console.log(submittedData, "Submitted Data From State");
     }
 
     setClientInitials("");
@@ -83,103 +81,111 @@ const AddHours = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Add Hours</h1>
-      {submittedData && (
-        <CreatedClient submittedData={submittedData} infoType={"addHours"} />
-      )}
+    <div className="generalContainer">
+      <div className="titleHeaders">
+        <h1>Add Hours</h1>
+      </div>
+      <form onSubmit={handleSubmit}>
+        {submittedData && (
+          <CreatedClient submittedData={submittedData} infoType={"addHours"} />
+        )}
 
-      <InputGroup size="lg">
-        <Form.Select
-          size="lg"
-          onChange={(e) => {
-            setClientPicked(parseInt(e.target.value));
-          }}
-          value={clientPicked}
-          required
-        >
-          <option value="">Choose Client</option>
-          {userClients?.map((client) => {
-            return (
-              <option key={client?.id} value={client?.id}>
-                {client?.client_initials}
-              </option>
-            );
-          })}
-        </Form.Select>
+        <InputGroup size="lg" className="genInputs">
+          <Form.Select
+            size="lg"
+            onChange={(e) => {
+              setClientPicked(parseInt(e.target.value));
+            }}
+            value={clientPicked}
+            required
+          >
+            <option value="">Choose Client</option>
+            {userClients?.map((client) => {
+              return (
+                <option key={client?.id} value={client?.id}>
+                  {client?.client_initials}
+                </option>
+              );
+            })}
+          </Form.Select>
+        </InputGroup>
         {theErrors.clientInitials && (
           <p className="warningPtag">{theErrors.clientInitials}</p>
         )}
-      </InputGroup>
 
-      <InputGroup size="lg">
-        <InputGroup.Text id="inputGroup-sizing-lg">DATE</InputGroup.Text>
-        <Form.Control
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-          type="DATE"
-          onChange={(e) => setWorkDate(e.target.value)}
-          value={workDate}
-          required
-        />
+        <InputGroup size="lg" className="genInputs">
+          <InputGroup.Text id="inputGroup-sizing-lg">DATE</InputGroup.Text>
+          <Form.Control
+            aria-label="Large"
+            aria-describedby="inputGroup-sizing-sm"
+            type="DATE"
+            onChange={(e) => setWorkDate(e.target.value)}
+            value={workDate}
+            required
+          />
+        </InputGroup>
         {theErrors.workDate && (
           <p className="warningPtag">{theErrors.workDate}</p>
         )}
-      </InputGroup>
 
-      <InputGroup size="lg">
-        <InputGroup.Text id="inputGroup-sizing-lg">Start Time</InputGroup.Text>
+        <InputGroup size="lg" className="genInputs">
+          <InputGroup.Text id="inputGroup-sizing-lg">
+            Start Time
+          </InputGroup.Text>
 
-        <Form.Control
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-          type="TIME"
-          onChange={(e) => setStartTime(e.target.value)}
-          value={startTime}
-          required
-        />
+          <Form.Control
+            aria-label="Large"
+            aria-describedby="inputGroup-sizing-sm"
+            type="TIME"
+            onChange={(e) => setStartTime(e.target.value)}
+            value={startTime}
+            required
+          />
+        </InputGroup>
         {theErrors.startTime && (
           <p className="warningPtag">{theErrors.startTime}</p>
         )}
-      </InputGroup>
 
-      <InputGroup size="lg">
-        <InputGroup.Text id="inputGroup-sizing-lg">End Time</InputGroup.Text>
-        <Form.Control
-          aria-label="Large"
-          aria-describedby="inputGroup-sizing-sm"
-          type="TIME"
-          onChange={(e) => setEndTime(e.target.value)}
-          value={endTime}
-          required
-        />
+        <InputGroup size="lg" className="genInputs">
+          <InputGroup.Text id="inputGroup-sizing-lg">End Time</InputGroup.Text>
+          <Form.Control
+            aria-label="Large"
+            aria-describedby="inputGroup-sizing-sm"
+            type="TIME"
+            onChange={(e) => setEndTime(e.target.value)}
+            value={endTime}
+            required
+          />
+        </InputGroup>
         {theErrors.endTime && (
           <p className="warningPtag">{theErrors.endTime}</p>
         )}
-      </InputGroup>
 
-      <InputGroup size="lg">
-        <InputGroup.Text id="inputGroup-sizing-lg">Total Hours</InputGroup.Text>
-        <Form.Control
-          aria-label="large"
-          aria-describedby="inputGroup-sizing-sm"
-          onChange={(e) => setTotalHours(e.target.value)}
-          value={totalHours}
-          disabled
-        />
-      </InputGroup>
+        <InputGroup size="lg" className="genInputs">
+          <InputGroup.Text id="inputGroup-sizing-lg">
+            Total Hours
+          </InputGroup.Text>
+          <Form.Control
+            aria-label="large"
+            aria-describedby="inputGroup-sizing-sm"
+            onChange={(e) => setTotalHours(e.target.value)}
+            value={totalHours}
+            disabled
+          />
+        </InputGroup>
 
-      <div className="d-grid gap-2">
-        <Button
-          variant="primary"
-          size="lg"
-          type="submit"
-          disabled={disabledBtn}
-        >
-          Submit Hours
-        </Button>
-      </div>
-    </form>
+        <div className="d-grid gap-2">
+          <Button
+            variant="primary"
+            size="lg"
+            type="submit"
+            disabled={disabledBtn}
+          >
+            Submit Hours
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 export default AddHours;

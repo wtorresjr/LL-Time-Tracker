@@ -15,12 +15,12 @@ function NavItems() {
   };
 
   return (
-    <>
+    <div className="generalContainer">
       <div style={{ display: "flex" }}>
         {sessionUser && (
-          <button id="logOutBtn" onClick={logUserOut}>
+          <Button variant="danger" onClick={logUserOut}>
             Log Out
-          </button>
+          </Button>
         )}
       </div>
       <div id="navPadding">
@@ -40,7 +40,7 @@ function NavItems() {
           </Button>
         </NavLink>
       </div>
-    </>
+    </div>
   );
 }
 
