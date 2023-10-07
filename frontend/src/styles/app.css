@@ -8,9 +8,9 @@ body {
   justify-content: center;
   justify-items: center;
   box-sizing: border-box;
-  background-color: rgb(37, 37, 37);
+  background-color: #252525; /* Dark background color */
 
-  /* Hide scrollbar for IE, Edge and Firefox */
+  /* Hide scrollbar for IE, Edge, and Firefox */
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -19,11 +19,12 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
 .contentContainer * {
   margin: 10px 0 10px 0;
   padding: 10px;
   box-sizing: border-box;
-  background-color: bisque;
+  background-color: #ffe4c4; /* Bisque */
   border-radius: 10px;
 }
 
@@ -32,29 +33,30 @@ body {
   gap: 20px;
   justify-content: space-between;
 }
+
 .clientSelectorDiv button,
 select {
   flex: 1;
 }
 
 .clientSelectorDiv button {
-  background-color: black;
-  color: white;
+  background-color: #000; /* Black */
+  color: #fff; /* White */
   font-weight: bolder;
 }
 
 .warningPtag {
-  color: white;
+  color: #fff; /* White */
   font-weight: bolder;
   width: 20%;
   text-align: center;
-  background-color: red;
+  background-color: #ff0000; /* Red */
   border-radius: 10px;
 }
 
 .active Button {
-  background-color: orangered;
-  color: white;
+  background-color: #ff4500; /* Orangered */
+  color: #fff; /* White */
 }
 
 #navPadding {
@@ -68,37 +70,40 @@ select {
 
 #logOutBtn {
   z-index: 9999;
-  color: white;
+  color: #fff; /* White */
   font-weight: bold;
   width: 98%;
   padding: 0 auto;
   box-sizing: border-box;
   margin: 0 auto;
-  background-color: black;
+  background-color: #000; /* Black */
 }
 
 .hoursListDiv {
   display: flex;
   flex-flow: column nowrap;
 }
+
 .hoursContain {
-  border: 1px solid black;
+  border: 1px solid #000; /* Black */
   display: flex;
   flex-flow: row wrap;
   gap: 0 25px;
 }
+
 .dayWorkedContain {
   flex: 1 1 calc(20% - 10px);
-  background-color: black;
-  color: white;
+  background-color: #000; /* Black */
+  color: #fff; /* White */
   font-size: 20px;
   font-weight: bolder;
   text-align: center;
 }
+
 .dayWorkedContain p {
-  background-color: black;
-  border-top: 1px solid rgb(141, 141, 141);
-  border-bottom: 1px solid rgb(141, 141, 141);
+  background-color: #000; /* Black */
+  border-top: 1px solid #8d8d8d; /* Light gray */
+  border-bottom: 1px solid #8d8d8d; /* Light gray */
   border-radius: 0;
 }
 
@@ -112,29 +117,29 @@ select {
 }
 
 .totalPayContain p {
-  background-color: black;
-  color: white;
+  background-color: #000; /* Black */
+  color: #fff; /* White */
   font-weight: bolder;
   font-size: 20px;
-  /* width: 50%; */
 }
 
 .clientInfoDiv {
   font-size: 20px;
   font-weight: bolder;
-  background-color: rgb(0, 0, 0);
-  color: white;
+  background-color: #000; /* Black */
+  color: #fff; /* White */
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
+
 .clientInfoDiv p {
   background-color: inherit;
   padding: 0px;
 }
 
 #allPayForClient {
-  color: white;
+  color: #fff; /* White */
   font-weight: bolder;
-  background-color: green;
+  background-color: #008000; /* Green */
 }
