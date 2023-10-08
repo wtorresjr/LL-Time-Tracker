@@ -29,7 +29,7 @@ const ViewHours = () => {
       <form>
         {allPay && (
           <Alert variant="success" id="allClientPayDiv">
-            Total Pay (All Clients): ${allPay}
+            Hi {sessionUser?.firstName}, Expected Pay (All Clients): ${allPay}
           </Alert>
         )}
         <ViewHoursAccordion userHrs={userHrs} allPay={allPay} />

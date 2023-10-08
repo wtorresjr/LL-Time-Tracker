@@ -9,9 +9,8 @@ import "../styles/app.css";
 
 const AddNewClient = () => {
   const dispatch = useDispatch();
-  const userClients = useSelector(
-    (state) => state?.clientList?.clients?.clients
-  );
+  const sessionUser = useSelector(
+    (state) => state?.session?.user);
   const [guardianName, setGuardianName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [clientInitials, setClientInitials] = useState("");
@@ -22,9 +21,9 @@ const AddNewClient = () => {
 
   const errors = {};
 
-  useEffect(() => {
-    dispatch(fetchClientList());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchClientList());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (guardianName.length < 2)
@@ -68,7 +67,7 @@ const AddNewClient = () => {
   return (
     <div className="generalContainer">
       <div className="titleHeaders">
-        <h1>Add New Client</h1>
+        <h1>Add New Client for {sessionUser?.firstName}</h1>
       </div>
       <form onSubmit={onSubmit}>
         {submittedData && (

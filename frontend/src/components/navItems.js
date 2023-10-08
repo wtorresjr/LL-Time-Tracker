@@ -11,7 +11,7 @@ import { logout } from "../store/session";
 function NavItems() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const sessionUser = useSelector((state) => state?.session?.user);
+  // const sessionUser = useSelector((state) => state?.session?.user);
   const [expanded, setExpanded] = useState(false);
 
   const handleNavItemClick = () => {
@@ -32,14 +32,22 @@ function NavItems() {
         collapseOnSelect
       >
         <Container>
-          <Navbar.Brand href="#home">Lantern Learning</Navbar.Brand>
-          <Navbar.Toggle
-            aria-controls="basic-navbar-nav"
-            onClick={() => setExpanded(!expanded)}
-          />
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Navbar.Brand href="#home">Lantern Learning</Navbar.Brand>
+            <Navbar.Toggle
+              aria-controls="basic-navbar-nav"
+              onClick={() => setExpanded(!expanded)}
+              style={{ right: "10px", top: "10px", position: "absolute" }}
+            />
+          </div>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <NavLink to="/" onClick={logUserOut} className="navItemLinks">
+              <NavLink
+                to="/"
+                onClick={logUserOut}
+                className="navItemLinks"
+                style={{ color: "red" }}
+              >
                 Log Out
               </NavLink>
               <NavLink
