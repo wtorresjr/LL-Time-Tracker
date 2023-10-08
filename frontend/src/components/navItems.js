@@ -22,6 +22,15 @@ function NavItems() {
             Log Out
           </Button>
         )}
+        <NavLink to="/view-hours">
+          <Button
+            variant="success"
+            size="lg"
+            onClick={(e) => alert("Feature coming soon...")}
+          >
+            Manage Clients
+          </Button>
+        </NavLink>
         <NavLink to="/add-client">
           <Button variant="warning" size="lg">
             Add Client
