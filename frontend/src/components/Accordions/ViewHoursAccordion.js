@@ -1,3 +1,4 @@
+import Badge from 'react-bootstrap/Badge';
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
@@ -18,9 +19,17 @@ function ViewHoursAccordion({ userHrs }) {
               </Accordion.Header>
               <Accordion.Body>
                 <div className="hourlynPayDiv">
-                  <p>Hourly Rate: ${hours?.hourly_rate}</p>
-                  <p>Total Pay: ${hours?.Total_Pay}</p>
-                </div>
+                  <p style={{fontWeight:'bolder'}}>Hourly Rate: <Badge bg="success" style={{ fontSize: '18px' }}>${hours?.hourly_rate}</Badge></p>
+                <p style={{fontWeight:'bolder'}}>Total Pay: <Badge bg="success" style={{fontSize:'18px'}}>${hours?.Total_Pay}</Badge></p>
+                </div><Table bordered>
+                  <thead style={{display:'flex', width:'100%', textAlign:'center'}}>
+                    <th style={{width:'25%'}}>Date:</th>
+                    <th style={{width:'25%'}}>Hours:</th>
+                    <th style={{width:'25%'}}>Amount Earned:</th>
+                    <th style={{width:'25%'}}>Click if paid:</th>
+                  </thead>
+                </Table>
+
                 {hours?.hoursworkeds?.map((day) => {
                   return (
                     <Table bordered key={day?.day_worked}>
@@ -33,7 +42,7 @@ function ViewHoursAccordion({ userHrs }) {
                             {(hours?.hourly_rate * day?.total_hours).toFixed(2)}
                           </td>
                           <td>
-                            <Button variant="success" style={{ width: "100%" }}>
+                            <Button variant="danger" style={{ width: "100%" }}>
                               Paid?
                             </Button>
                           </td>

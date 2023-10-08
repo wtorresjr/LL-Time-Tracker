@@ -68,7 +68,7 @@ const AddNewClient = () => {
   return (
     <div className="generalContainer">
       <div className="titleHeaders">
-        <h1>Add New Client Page</h1>
+        <h1>Add New Client</h1>
       </div>
       <form onSubmit={onSubmit}>
         {submittedData && (
@@ -79,6 +79,7 @@ const AddNewClient = () => {
             Guardian Name
           </InputGroup.Text>
           <Form.Control
+          style={{backgroundColor:'#d5ebff'}}
             pattern="[a-zA-Z ]{2,35}"
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
@@ -93,6 +94,7 @@ const AddNewClient = () => {
         <InputGroup size="lg" className="genInputs">
           <InputGroup.Text id="inputGroup-sizing-lg">Phone</InputGroup.Text>
           <Form.Control
+            style={{backgroundColor:'#d5ebff'}}
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
             type="tel"
@@ -111,6 +113,7 @@ const AddNewClient = () => {
             Client Initials
           </InputGroup.Text>
           <Form.Control
+            style={{backgroundColor:'#d5ebff'}}
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
             // pattern="[A-Z]{2,3}"
@@ -127,6 +130,7 @@ const AddNewClient = () => {
           <InputGroup.Text>Hourly Rate</InputGroup.Text>
           <InputGroup.Text>$</InputGroup.Text>
           <Form.Control
+            style={{backgroundColor:'#d5ebff'}}
             aria-label="Dollar amount (with dot and two decimal places)"
             pattern="^[0-9]{2,4}\.[0-9]{2}$"
             value={hourlyRate}

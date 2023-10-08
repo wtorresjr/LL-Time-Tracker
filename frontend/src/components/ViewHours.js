@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchHours } from "../store/hoursReducer";
 import { fetchClientList } from "../store/clientReducer";
 import ViewHoursAccordion from "./Accordions/ViewHoursAccordion";
+import Alert from 'react-bootstrap/Alert';
+
 
 const ViewHours = () => {
   const dispatch = useDispatch();
@@ -26,11 +28,13 @@ const ViewHours = () => {
   return (
     <div className="generalContainer">
       <div className="titleHeaders">
-        <h1>View Hours Page</h1>
+        <h1>Hours</h1>
       </div>
       <form>
         {allPay && (
-          <div id="allClientPayDiv">Total Pay (All Clients): ${allPay}</div>
+           <Alert variant='success' id="allClientPayDiv">
+        Total Pay (All Clients): ${allPay}
+        </Alert>
         )}
         <ViewHoursAccordion userHrs={userHrs} allPay={allPay} />
       </form>

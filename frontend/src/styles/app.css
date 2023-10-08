@@ -23,6 +23,10 @@ body {
   /* width: 90%; */
 }
 
+.inputColor{
+  background-color: #d5ebff
+}
+
 .generalContainer {
   display: flex;
   justify-content: center;
@@ -45,16 +49,16 @@ form {
 }
 
 #allClientPayDiv {
-  margin: 20px 0 0 0;
-  background-color: green;
-  height: 40px;
+  /* margin: 20px 0 0 0; */
+  /* background-color: green; */
+  /* height: 40px; */
   display: flex;
-  color: white;
+  color: green;
   justify-content: center;
   align-items: center;
   font-size: 18px;
   font-weight: bolder;
-  border-radius: 90px;
+  border-radius: 0 0 10px 10px;
 }
 
 .accHeader {
