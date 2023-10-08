@@ -18,9 +18,11 @@ function NavItems() {
     <div className="generalContainer">
       <div className="navPadding">
         {sessionUser && (
-          <Button size="lg" variant="danger" onClick={logUserOut}>
-            Log Out
-          </Button>
+          <NavLink to="">
+            <Button size="lg" variant="danger" onClick={logUserOut}>
+              Log Out
+            </Button>
+          </NavLink>
         )}
         <NavLink to="/view-hours">
           <Button

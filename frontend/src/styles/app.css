@@ -94,3 +94,12 @@ form {
   justify-content: space-between;
   width: 90%;
 }
+
+.navPadding NavLink {
+  flex: 1;
+}
+
+.navPadding Button {
+  color: black;
+  height:110px;
+}
