@@ -16,14 +16,12 @@ function NavItems() {
 
   return (
     <div className="generalContainer">
-      <div style={{ display: "flex" }}>
+      <div className="navPadding">
         {sessionUser && (
-          <Button variant="danger" onClick={logUserOut}>
+          <Button size="lg" variant="danger" onClick={logUserOut}>
             Log Out
           </Button>
         )}
-      </div>
-      <div id="navPadding">
         <NavLink to="/add-client">
           <Button variant="warning" size="lg">
             Add Client

@@ -46,12 +46,10 @@ body {
 }
 form {
   width: 90%;
+  padding: 0 0 200px 0;
 }
 
 #allClientPayDiv {
-  /* margin: 20px 0 0 0; */
-  /* background-color: green; */
-  /* height: 40px; */
   display: flex;
   color: green;
   justify-content: center;
@@ -89,4 +87,10 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.navPadding {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
 }
