@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchHours } from "../store/hoursReducer";
 import { fetchClientList } from "../store/clientReducer";
 import ViewHoursAccordion from "./Accordions/ViewHoursAccordion";
-import Alert from 'react-bootstrap/Alert';
-
+import Alert from "react-bootstrap/Alert";
 
 const ViewHours = () => {
   const dispatch = useDispatch();
@@ -17,13 +16,10 @@ const ViewHours = () => {
     (state) => state?.hoursReducer?.userHours?.All_Client_Pay
   );
 
-
   useEffect(() => {
     dispatch(fetchHours(sessionUser?.id));
     dispatch(fetchClientList(sessionUser?.id));
   }, [dispatch, sessionUser]);
-
-
 
   return (
     <div className="generalContainer">
@@ -32,9 +28,9 @@ const ViewHours = () => {
       </div>
       <form>
         {allPay && (
-           <Alert variant='success' id="allClientPayDiv">
-        Total Pay (All Clients): ${allPay}
-        </Alert>
+          <Alert variant="success" id="allClientPayDiv">
+            Total Pay (All Clients): ${allPay}
+          </Alert>
         )}
         <ViewHoursAccordion userHrs={userHrs} allPay={allPay} />
       </form>

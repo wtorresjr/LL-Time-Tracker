@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Alert from "react-bootstrap/Alert";
 import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
 import { Redirect } from "react-router-dom";
@@ -42,6 +43,7 @@ function LoginPrompt() {
             className="genInputs"
           >
             <Form.Control
+              style={{ backgroundColor: "#d5ebff" }}
               type="email"
               placeholder="name@example.com"
               value={credential}
@@ -54,23 +56,27 @@ function LoginPrompt() {
             className="genInputs"
           >
             <Form.Control
+              style={{ backgroundColor: "#d5ebff" }}
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </FloatingLabel>
-          {errors && (
-            <h5
-              style={{
-                textAlign: "center",
-                color: "red",
-                margin: "20px 0 20px 0",
-              }}
-            >
-              {errors.credential}
-            </h5>
-          )}
+          {errors &&
+            (errors.errors || errors.password || errors.credential) && (
+              <h5
+                style={{
+                  textAlign: "center",
+                  margin: "20px 0 20px 0",
+                }}
+              >
+                <Alert variant="danger">
+                  {errors.credential || errors.errors || errors.password}
+                </Alert>
+              </h5>
+            )}
+
           <div className="d-grid gap-2">
             <Button variant="primary" size="lg" type="submit">
               Login

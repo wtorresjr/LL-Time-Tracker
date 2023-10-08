@@ -20,7 +20,7 @@ const AddHours = () => {
   const [theErrors, setErrors] = useState({});
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [submittedData, setSubmittedData] = useState(null);
-  const [clientPicked, setClientPicked] = useState('');
+  const [clientPicked, setClientPicked] = useState("");
 
   const errors = {};
 
@@ -92,7 +92,7 @@ const AddHours = () => {
 
         <InputGroup size="lg" className="genInputs">
           <Form.Select
-            style={{backgroundColor:'#d5ebff'}}
+            style={{ backgroundColor: "#d5ebff" }}
             size="lg"
             onChange={(e) => {
               setClientPicked(parseInt(e.target.value));
@@ -117,7 +117,7 @@ const AddHours = () => {
         <InputGroup size="lg" className="genInputs">
           <InputGroup.Text id="inputGroup-sizing-lg">DATE</InputGroup.Text>
           <Form.Control
-            style={{backgroundColor:'#d5ebff'}}
+            style={{ backgroundColor: "#d5ebff" }}
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
             type="DATE"
@@ -136,7 +136,7 @@ const AddHours = () => {
           </InputGroup.Text>
 
           <Form.Control
-            style={{backgroundColor:'#d5ebff'}}
+            style={{ backgroundColor: "#d5ebff" }}
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
             type="TIME"
@@ -152,7 +152,7 @@ const AddHours = () => {
         <InputGroup size="lg" className="genInputs">
           <InputGroup.Text id="inputGroup-sizing-lg">End Time</InputGroup.Text>
           <Form.Control
-            style={{backgroundColor:'#d5ebff'}}
+            style={{ backgroundColor: "#d5ebff" }}
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
             type="TIME"
@@ -170,7 +170,7 @@ const AddHours = () => {
             Total Hours
           </InputGroup.Text>
           <Form.Control
-            style={{backgroundColor:'#d5ebff'}}
+            style={{ backgroundColor: "#d5ebff" }}
             aria-label="large"
             aria-describedby="inputGroup-sizing-sm"
             onChange={(e) => setTotalHours(e.target.value)}
