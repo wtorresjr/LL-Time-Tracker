@@ -219,12 +219,12 @@ const seedHours = [
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    options.tableName = "hoursworkeds";
+    options.tableName = "Hoursworkeds";
     return await queryInterface.bulkInsert(options, seedHours, {});
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = "hoursworkeds";
+    options.tableName = "Hoursworkeds";
     return await queryInterface.bulkDelete(
       options,
       {
