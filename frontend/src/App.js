@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min.js";
 import React, { useState, useEffect } from "react";
+import SignupForm from "../src/components/SignUpForm.js";
 
 function App() {
   const sessionUser = useSelector((state) => state?.session?.user);
@@ -26,6 +27,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <LoginPrompt />
+        </Route>
+        <Route exact path="/SignupNewEmployee">
+          <SignupForm />
         </Route>
         <Route exact path="/add-client">
           {(sessionUser && <AddNewClient />) || (

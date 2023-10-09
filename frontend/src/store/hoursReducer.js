@@ -30,7 +30,6 @@ export const addHours = (addedHours) => {
 
 export const addHoursForClient = (hoursWorked, id) => async (dispatch) => {
   try {
-    console.log(id, "Client ID from Reducer");
     const response = await csrfFetch(`/api/hours/add-hours/${+id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

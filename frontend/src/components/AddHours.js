@@ -68,7 +68,6 @@ const AddHours = () => {
     };
 
     if (clientHoursWorked) {
-      console.log(clientPicked, "client picked");
       dispatch(addHoursForClient(clientHoursWorked, +clientPicked));
       setSubmittedData(clientHoursWorked);
     }
