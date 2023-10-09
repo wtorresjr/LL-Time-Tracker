@@ -7,7 +7,6 @@ import Alert from "react-bootstrap/Alert";
 
 const ViewHours = () => {
   const dispatch = useDispatch();
-  const [selectedClient, setSelectedClient] = useState("");
   const sessionUser = useSelector((state) => state?.session?.user);
   const userHrs = useSelector(
     (state) => state?.hoursReducer?.userHours?.clients
@@ -27,12 +26,16 @@ const ViewHours = () => {
         <h1>Hours</h1>
       </div>
       <form>
-        {allPay && (
+        {(allPay && allPay !== 0 && (
           <Alert variant="success" id="allClientPayDiv">
-            Hi {sessionUser?.firstName}, Expected Pay (All Clients): ${allPay}
+            Current Pay (All Clients): ${allPay}
           </Alert>
+        )) || (
+          <h3 style={{ textAlign: "center" }}>
+            You currently have no hours logged.
+          </h3>
         )}
-        <ViewHoursAccordion userHrs={userHrs} allPay={allPay} />
+        <ViewHoursAccordion userHrs={userHrs} />
       </form>
     </div>
   );

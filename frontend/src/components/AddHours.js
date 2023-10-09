@@ -16,7 +16,7 @@ const AddHours = () => {
   const [workDate, setWorkDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [totalHours, setTotalHours] = useState(0);
+  const [totalHours, setTotalHours] = useState("0");
   const [theErrors, setErrors] = useState({});
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [submittedData, setSubmittedData] = useState(null);

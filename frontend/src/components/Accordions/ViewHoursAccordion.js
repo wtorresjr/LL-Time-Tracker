@@ -8,7 +8,7 @@ import "../../styles/app.css";
 function ViewHoursAccordion({ userHrs }) {
   return (
     <div>
-      <Accordion className="genInputs">
+      <Accordion className="genInputs" alwaysOpen>
         {userHrs?.map((hours) => {
           return (
             <Accordion.Item eventKey={hours?.id} key={hours?.id}>
@@ -33,15 +33,17 @@ function ViewHoursAccordion({ userHrs }) {
                   </p>
                 </div>
                 <Table bordered>
-                  <thead style={{ display: "flex", width: "100%" }}>
-                    <th style={{ width: "25%" }}>Date:</th>
-                    <th style={{ width: "25%" }}>Hours:</th>
-                    <th style={{ width: "25%", textAlign: "center" }}>
-                      Amount Earned:
-                    </th>
-                    <th style={{ width: "25%", textAlign: "center" }}>
-                      Click if paid:
-                    </th>
+                  <thead>
+                    <tr style={{ display: "flex", width: "100%" }}>
+                      <th style={{ width: "25%" }}>Date:</th>
+                      <th style={{ width: "25%" }}>Hours:</th>
+                      <th style={{ width: "25%", textAlign: "center" }}>
+                        Amount Earned:
+                      </th>
+                      <th style={{ width: "25%", textAlign: "center" }}>
+                        Click if paid:
+                      </th>
+                    </tr>
                   </thead>
                 </Table>
 
@@ -57,7 +59,11 @@ function ViewHoursAccordion({ userHrs }) {
                             {(hours?.hourly_rate * day?.total_hours).toFixed(2)}
                           </td>
                           <td>
-                            <Button variant="danger" style={{ width: "100%" }}>
+                            <Button
+                              variant="danger"
+                              style={{ width: "100%" }}
+                              onClick={(e) => alert("Feature Coming Soon...")}
+                            >
                               Paid?
                             </Button>
                           </td>
