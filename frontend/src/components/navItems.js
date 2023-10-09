@@ -48,35 +48,45 @@ function NavItems() {
                 className="navItemLinks"
                 style={{ color: "red" }}
               >
+                <i class="fa-solid fa-right-from-bracket fa-xl"></i>
                 Log Out
+                <i class="fa-solid fa-right-from-bracket fa-xl"></i>
               </NavLink>
               <NavLink
                 to="/add-hours"
                 className="navItemLinks"
                 onClick={handleNavItemClick}
               >
+                <i class="fa-regular fa-clock fa-xl"></i>
                 Add Hours
+                <i class="fa-regular fa-clock fa-xl"></i>
               </NavLink>
               <NavLink
                 to="/view-hours"
                 className="navItemLinks"
                 onClick={handleNavItemClick}
               >
+                <i class="fa-solid fa-list-check fa-xl"></i>
                 View Hours
+                <i class="fa-solid fa-list-check fa-xl"></i>
               </NavLink>
               <NavLink
                 to="/add-client"
                 className="navItemLinks"
                 onClick={handleNavItemClick}
               >
+                <i class="fa-solid fa-address-card fa-xl"></i>
                 Add New Client
+                <i class="fa-solid fa-address-card fa-xl"></i>
               </NavLink>
               <NavLink
                 to=""
                 onClick={(e) => alert("Feature Coming Soon...")}
                 className="navItemLinks"
               >
+                <i class="fa-regular fa-address-book fa-xl"></i>
                 Manage Clients
+                <i class="fa-regular fa-address-book fa-xl"></i>
               </NavLink>
             </Nav>
           </Navbar.Collapse>

@@ -28,7 +28,11 @@ const ViewHours = () => {
       <form>
         {(allPay && allPay !== 0 && (
           <Alert variant="success" id="allClientPayDiv">
-            Current Pay (All Clients): ${allPay}
+            <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
+            <div style={{ textAlign: "center" }}>
+              Current Pay (All Clients): ${allPay}
+            </div>
+            <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
           </Alert>
         )) || (
           <h3 style={{ textAlign: "center" }}>
