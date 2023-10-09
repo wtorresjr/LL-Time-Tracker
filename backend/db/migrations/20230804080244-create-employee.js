@@ -7,39 +7,43 @@ if (process.env.NODE_ENV === "production") {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("employees", {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
+    await queryInterface.createTable(
+      "employees",
+      {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+        },
+        email: {
+          type: Sequelize.STRING,
+        },
+        hashedPassword: {
+          type: Sequelize.STRING,
+        },
+        firstName: {
+          type: Sequelize.STRING,
+        },
+        lastName: {
+          type: Sequelize.STRING,
+        },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        },
+        updatedAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        },
       },
-      email: {
-        type: Sequelize.STRING,
-      },
-      hashedPassword: {
-        type: Sequelize.STRING,
-      },
-      firstName: {
-        type: Sequelize.STRING,
-      },
-      lastName: {
-        type: Sequelize.STRING,
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-      },
-    });
+      options
+    );
   },
   async down(queryInterface, Sequelize) {
-      options.tableName = "employees";
-    await queryInterface.dropTable("employees");
+    options.tableName = "employees";
+    await queryInterface.dropTable("employees", options);
   },
 };
