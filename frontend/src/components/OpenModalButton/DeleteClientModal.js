@@ -5,10 +5,12 @@ import { useDispatch } from "react-redux";
 
 const DeleteClientModal = (props) => {
   const dispatch = useDispatch();
-  const deleteClient = () => {
+
+  const deleteClient = async () => {
     try {
       dispatch(deleteFromClients(props.client));
-      props.onHide(true);
+
+      await props.onHide(true);
       dispatch(fetchClientList());
     } catch (err) {
       throw err;
@@ -29,7 +31,7 @@ const DeleteClientModal = (props) => {
       </Modal.Header>
       <Modal.Body>
         <h4>Are you sure?</h4>
-        <p>If you'd like to delete {props.client}</p>
+        <p>If you'd like to delete {props.clientname}</p>
       </Modal.Body>
       <Modal.Footer
         style={{ display: "flex", justifyContent: "space-between" }}

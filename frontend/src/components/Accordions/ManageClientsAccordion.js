@@ -1,23 +1,22 @@
 import Badge from "react-bootstrap/Badge";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteClientModal from "../OpenModalButton/DeleteClientModal";
 import "../../styles/app.css";
 import { useDispatch } from "react-redux";
 
-
 function ManageClientsAccordion({ userClients }) {
   const [modalShow, setModalShow] = useState(false);
   const [clientIdIs, setClientIdIs] = useState(0);
-
+  const [clientInit, setClientInit] = useState("");
 
   const openConfirmDelete = (clientId) => {
     setModalShow(true);
     setClientIdIs(clientId);
   };
 
-
+  //FIX DELETE CLIENT REFRESH CLIENT MANAGER TO REMOVE DELETED CLIENT
 
   return (
     <div>
@@ -25,6 +24,7 @@ function ManageClientsAccordion({ userClients }) {
         show={modalShow}
         onHide={() => setModalShow(false)}
         client={clientIdIs}
+        clientname={clientInit}
       />
       <Accordion className="genInputs">
         {userClients?.map((client) => {
@@ -51,7 +51,10 @@ function ManageClientsAccordion({ userClients }) {
                 >
                   <Button
                     variant="danger"
-                    onClick={(e) => openConfirmDelete(client?.id)}
+                    onClick={(e) => {
+                      openConfirmDelete(client?.id);
+                      setClientInit(client?.client_initials);
+                    }}
                   >
                     Delete Client
                   </Button>
