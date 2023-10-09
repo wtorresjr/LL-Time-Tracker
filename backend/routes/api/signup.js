@@ -19,30 +19,45 @@ const validateSignup = [
   handleValidationErrors,
 ];
 
-// Sign up
-router.post("", validateSignup, async (req, res) => {
+router.post("/", validateSignup, async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
   const hashedPassword = bcrypt.hashSync(password);
 
-  const user = await employee.create({
-    email,
-    hashedPassword,
-    firstName,
-    lastName,
-  });
+  try {
+    const user = await employee.create({
+      email,
+      hashedPassword,
+      firstName,
+      lastName,
+    });
+    const safeUser = {
+      id: user.id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
+    await setTokenCookie(res, safeUser);
+    return res.json({
+      user: safeUser,
+    });
+  } catch (err) {
+    const errors = {};
+    err.errors.map((err) => {
+      errors[err.path] = err.message;
+    });
 
-  const safeUser = {
-    id: user.id,
-    email: user.email,
-    firstName: user.firstName,
-    lastName: user.lastName,
-  };
+    let custMessage = "";
 
-  await setTokenCookie(res, safeUser);
+    if (err.errors[0].validatorKey === "checkIfUnique") {
+      custMessage = "User already exists";
+      err.status = 500;
+    } else {
+      custMessage = "Bad Request";
+      err.status = 400;
+    }
 
-  return res.json({
-    user: safeUser,
-  });
+    return res.status(err.status).json({ message: custMessage, errors });
+  }
 });
 
 module.exports = router;
