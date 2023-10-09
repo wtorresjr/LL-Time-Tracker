@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Client",
+      modelName: "client",
       defaultScope: {
         attributes: ["client_initials"],
       },
