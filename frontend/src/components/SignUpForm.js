@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
-import { Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 
 function SignupForm() {
@@ -160,6 +160,10 @@ function SignupForm() {
             <Button variant="primary" size="lg" type="submit">
               Sign Up
             </Button>
+
+            <div style={{ margin: "20px 0 0 0" }}>
+              <NavLink to="/">Already have an account? Login</NavLink>
+            </div>
           </div>
         </Container>
       </form>

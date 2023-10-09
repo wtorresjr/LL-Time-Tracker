@@ -2,11 +2,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Alert from "react-bootstrap/Alert";
-import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
 import { Redirect } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 import * as sessionActions from "../store/session";
 import { useSelector } from "react-redux";
@@ -81,6 +81,9 @@ function LoginPrompt() {
             <Button variant="primary" size="lg" type="submit">
               Login
             </Button>
+          </div>
+          <div style={{ margin: "20px 0 0 0" }}>
+            <NavLink to="/signupnewemployee">Sign Up</NavLink>
           </div>
         </Container>
       </form>
