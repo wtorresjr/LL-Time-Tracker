@@ -1,3 +1,6 @@
+import Alert from "react-bootstrap/Alert";
+import Container from "react-bootstrap/Container";
+
 const CreatedClient = ({ submittedData, infoType }) => {
   return (
     <>
@@ -12,7 +15,11 @@ const CreatedClient = ({ submittedData, infoType }) => {
       )}
 
       {infoType === "addHours" && (
-        <h3 style={{ color: "green" }}>Successfully Submitted Hours.</h3>
+        <Alert variant="success">
+          <h3 style={{ color: "green", textAlign: "center" }}>
+            Successfully Added Hours.
+          </h3>
+        </Alert>
       )}
     </>
   );

@@ -1,38 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUpNewUser } from "../store/session";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Alert from "react-bootstrap/Alert";
 import Container from "react-bootstrap/Container";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import Button from "react-bootstrap/esm/Button";
 
 function SignupForm() {
+  const sessionUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isDisabled, setIsDisabled] = useState(true);
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    if (
-      !email.length ||
-      !firstName.length ||
-      !lastName.length ||
-      !password.length ||
-      !confirmPassword.length ||
-      password.length < 6 ||
-      confirmPassword.length < 6
-    ) {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
-  }, [email, firstName, lastName, password, confirmPassword]);
+  if (sessionUser) return <Redirect to="/add-hours" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,6 +61,7 @@ function SignupForm() {
               placeholder="name@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </FloatingLabel>
 
@@ -89,6 +76,7 @@ function SignupForm() {
               placeholder="John"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              required
             />
           </FloatingLabel>
 
@@ -103,6 +91,7 @@ function SignupForm() {
               placeholder="Smith"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </FloatingLabel>
 
@@ -117,6 +106,7 @@ function SignupForm() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </FloatingLabel>
 
@@ -131,6 +121,7 @@ function SignupForm() {
               placeholder="Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
           </FloatingLabel>
 

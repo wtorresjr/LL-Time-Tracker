@@ -44,7 +44,7 @@ const AddHours = () => {
     ) {
       setDisabledBtn(false);
     }
-  }, [workDate, startTime, endTime, clientInitials, clientPicked]);
+  }, [workDate, startTime, endTime, clientPicked]);
 
   useEffect(() => {
     let [startHour, startMins] = startTime.split(":");

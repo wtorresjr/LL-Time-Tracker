@@ -10,15 +10,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // import Button from "react-bootstrap/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min.js";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import SignupForm from "../src/components/SignUpForm.js";
 
 function App() {
   const sessionUser = useSelector((state) => state?.session?.user);
   const dispatch = useDispatch();
-  const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser());
   }, [dispatch]);
 
   return (
