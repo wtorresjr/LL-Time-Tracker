@@ -49,6 +49,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("hoursworkeds");
+    await queryInterface.dropTable("Hoursworkeds");
   },
 };
