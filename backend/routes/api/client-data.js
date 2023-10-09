@@ -16,7 +16,6 @@ router.get("/", async (req, res) => {
           "hourly_rate",
         ],
       },
-      // attributes: ["firstName", "lastName"],
     });
     res.json(usersClients);
   } else {
@@ -44,6 +43,25 @@ router.post("/add", async (req, res) => {
     });
   } else {
     res.status(401).json({ error: "You must login to add a new client" });
+  }
+});
+
+router.delete("/delete/:clientId", async (req, res) => {
+  const { clientId } = req.params;
+  const userId = req.user.id;
+  if (req.user) {
+    const clientToDelete = await client.findByPk(clientId, {
+      attributes: ["employeeId",'id'],
+    });
+    console.log("Client To Delete", clientToDelete);
+    if (clientToDelete && +clientToDelete.employeeId === +userId) {
+      await clientToDelete.destroy();
+      res.json({ message: "Successfully Deleted" });
+    } else {
+      res.status(403).json({ message: "Forbidden" });
+    }
+  } else {
+    res.status(403).json({ error: "Log in to delete clients" });
   }
 });
 

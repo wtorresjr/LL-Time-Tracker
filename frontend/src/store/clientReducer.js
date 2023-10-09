@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const ADD_CLIENT = "clients/add-clients";
 const GET_CLIENT_LIST = "clients/get-all-clients";
+const DELETE_CLIENT = "clients/delete-client";
 
 export const fetchClients = (clientList) => {
   return {
@@ -42,6 +43,27 @@ export const addNewClient = (clientInfo) => async (dispatch) => {
       dispatch(addClient(newClientCreated));
       return newClientCreated;
     }
+  } catch (err) {
+    throw err;
+  }
+};
+
+const deleteClient = (deletedClient) => {
+  return {
+    type: DELETE_CLIENT,
+    deletedClient,
+  };
+};
+
+export const deleteFromClients = (clientId) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/clients/delete/${clientId}`, {
+      method: "DELETE",
+    });
+    const clientDeleted = await response.json();
+    dispatch(deleteClient);
+    // dispatch(fetchClientList);
+    return clientDeleted;
   } catch (err) {
     throw err;
   }
