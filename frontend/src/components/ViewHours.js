@@ -11,14 +11,12 @@ const ViewHours = () => {
   const userHrs = useSelector(
     (state) => state?.hoursReducer?.userHours?.clients
   );
-  const allPay = useSelector(
-    (state) => state?.hoursReducer?.userHours?.All_Client_Pay
-  );
+  const allPay = useSelector((state) => state?.hoursReducer?.userHours);
 
   useEffect(() => {
     dispatch(fetchHours(sessionUser?.id));
     dispatch(fetchClientList(sessionUser?.id));
-  }, [dispatch, sessionUser, allPay]);
+  }, [dispatch]);
 
   return (
     <div className="generalContainer">
@@ -26,16 +24,17 @@ const ViewHours = () => {
         <h1>Hours</h1>
       </div>
       <form>
-        {(sessionUser && allPay && allPay !== 0 && (
+        {(allPay && allPay?.All_Client_Pay !== 0 && (
           <Alert variant="success" id="allClientPayDiv">
             <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
             <div style={{ textAlign: "center" }}>
-              Current Pay (All Clients): ${allPay}
+              Current Pay (All Clients): ${allPay?.All_Client_Pay}
             </div>
             <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
           </Alert>
         )) ||
-          (!allPay || allPay == 0 && (
+          !allPay ||
+          (allPay == 0 && (
             <h3 style={{ textAlign: "center" }}>
               You currently have no hours logged.
             </h3>
