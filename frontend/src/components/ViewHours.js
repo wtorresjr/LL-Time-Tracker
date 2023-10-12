@@ -18,6 +18,10 @@ const ViewHours = () => {
     dispatch(fetchClientList(sessionUser?.id));
   }, [dispatch]);
 
+    useEffect(() => {
+      console.log("allPay.All_Client_Pay:", allPay?.All_Client_Pay);
+    }, [allPay]);
+
   return (
     <div className="generalContainer">
       <div className="titleHeaders">
