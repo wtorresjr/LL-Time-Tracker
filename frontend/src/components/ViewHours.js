@@ -10,14 +10,16 @@ const ViewHours = () => {
   const sessionUser = useSelector((state) => state?.session?.user);
   const userHrs = useSelector((state) => state?.hoursReducer?.userHours);
   const allPay = useSelector(() => userHrs?.All_Client_Pay);
+  const [allPayLoaded, setAllPayLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchHours(sessionUser?.id));
       await dispatch(fetchClientList(sessionUser?.id));
+      +allPay != 0 ? setAllPayLoaded(true) : setAllPayLoaded(false);
     };
     fetchData();
-  }, [dispatch, sessionUser]);
+  }, [dispatch, sessionUser, allPay]);
 
   useEffect(() => {
     console.log("All_Client_Pay:", allPay);
@@ -29,7 +31,7 @@ const ViewHours = () => {
         <h1>Hours</h1>
       </div>
       <form>
-        {(allPay !== 0 && (
+        {(allPayLoaded && (
           <Alert variant="success" id="allClientPayDiv">
             <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
             <div style={{ textAlign: "center" }}>
@@ -38,7 +40,7 @@ const ViewHours = () => {
             <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
           </Alert>
         )) ||
-          (allPay === 0 && (
+          (!allPayLoaded && (
             <h3 style={{ textAlign: "center", margin: "20px 0 0 0" }}>
               You currently have no hours logged.
             </h3>
