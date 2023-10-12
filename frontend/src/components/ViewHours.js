@@ -14,13 +14,17 @@ const ViewHours = () => {
   const allPay = useSelector((state) => state?.hoursReducer?.userHours);
 
   useEffect(() => {
-    dispatch(fetchHours(sessionUser?.id));
-    dispatch(fetchClientList(sessionUser?.id));
-  }, [dispatch]);
+    const fetchData = async () => {
+      await dispatch(fetchHours(sessionUser?.id));
+      await dispatch(fetchClientList(sessionUser?.id));
+    };
 
-    useEffect(() => {
-      console.log("allPay.All_Client_Pay:", allPay?.All_Client_Pay);
-    }, [allPay]);
+    fetchData();
+  }, [dispatch, sessionUser]);
+
+  useEffect(() => {
+    console.log("allPay.All_Client_Pay:", allPay?.All_Client_Pay);
+  }, [allPay]);
 
   return (
     <div className="generalContainer">
