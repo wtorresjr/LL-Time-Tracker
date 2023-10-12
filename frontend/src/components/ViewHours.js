@@ -32,7 +32,7 @@ const ViewHours = () => {
         <h1>Hours</h1>
       </div>
       <form>
-        {(allPay && allPay?.All_Client_Pay !== 0 && (
+        {(allPay && +allPay?.All_Client_Pay != 0 && (
           <Alert variant="success" id="allClientPayDiv">
             <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
             <div style={{ textAlign: "center" }}>
