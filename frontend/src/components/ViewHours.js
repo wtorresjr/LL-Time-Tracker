@@ -34,7 +34,7 @@ const ViewHours = () => {
           </Alert>
         )) ||
           !allPay ||
-          (allPay == 0 && (
+          (allPay?.All_Client_Pay == 0 && (
             <h3 style={{ textAlign: "center" }}>
               You currently have no hours logged.
             </h3>
