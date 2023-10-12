@@ -56,6 +56,7 @@ router.get("/", async (req, res) => {
       clientHours.setDataValue("All_Client_Pay", Number(allPay));
 
       res.status(200).json(clientHours);
+      console.log("Server Response:", clientHours);
     } else {
       res.status(401).json({ error: "Unauthorized - Login to continue" });
     }
