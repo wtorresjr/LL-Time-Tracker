@@ -18,7 +18,7 @@ const ViewHours = () => {
   useEffect(() => {
     dispatch(fetchHours(sessionUser?.id));
     dispatch(fetchClientList(sessionUser?.id));
-  }, [dispatch, sessionUser]);
+  }, [dispatch, sessionUser, allPay]);
 
   return (
     <div className="generalContainer">
@@ -26,7 +26,7 @@ const ViewHours = () => {
         <h1>Hours</h1>
       </div>
       <form>
-        {(allPay && allPay !== 0 && (
+        {(sessionUser && allPay && allPay !== 0 && (
           <Alert variant="success" id="allClientPayDiv">
             <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
             <div style={{ textAlign: "center" }}>
@@ -34,11 +34,12 @@ const ViewHours = () => {
             </div>
             <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
           </Alert>
-        )) || (
-          <h3 style={{ textAlign: "center" }}>
-            You currently have no hours logged.
-          </h3>
-        )}
+        )) ||
+          (!allPay || allPay == 0 && (
+            <h3 style={{ textAlign: "center" }}>
+              You currently have no hours logged.
+            </h3>
+          ))}
         <ViewHoursAccordion userHrs={userHrs} />
       </form>
     </div>
