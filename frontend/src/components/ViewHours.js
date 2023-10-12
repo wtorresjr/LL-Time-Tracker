@@ -10,13 +10,15 @@ const ViewHours = () => {
   const sessionUser = useSelector((state) => state?.session?.user);
   const userHrs = useSelector((state) => state?.hoursReducer?.userHours);
   const allPay = useSelector(() => userHrs?.All_Client_Pay);
-  const [allPayLoaded, setAllPayLoaded] = useState(false);
+  const [allPayLoaded, setAllPayLoaded] = useState(
+    allPay !== null && allPay !== undefined
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchHours(sessionUser?.id));
       await dispatch(fetchClientList(sessionUser?.id));
-      +allPay != 0 ? setAllPayLoaded(true) : setAllPayLoaded(false);
+      setAllPayLoaded(+allPay !== 0);
     };
     fetchData();
   }, [dispatch, sessionUser, allPay]);
