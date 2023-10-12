@@ -8,24 +8,16 @@ import Alert from "react-bootstrap/Alert";
 const ViewHours = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state?.session?.user);
-  const userHrs = useSelector(
-    (state) => state?.hoursReducer?.userHours?.clients
-  );
+  const userHrs = useSelector((state) => state?.hoursReducer?.userHours);
+  const allPay = useSelector(() => userHrs?.All_Client_Pay);
 
-  const allPay = useSelector(
-    (state) => state?.hoursReducer?.userHours?.All_Client_Pay
-  );
-
-  
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(fetchHours(sessionUser?.id));
       await dispatch(fetchClientList(sessionUser?.id));
     };
-
     fetchData();
-  }, [dispatch, sessionUser, allPay]);
-
+  }, [dispatch, sessionUser]);
 
   useEffect(() => {
     console.log("All_Client_Pay:", allPay);
@@ -37,7 +29,7 @@ const ViewHours = () => {
         <h1>Hours</h1>
       </div>
       <form>
-        {(+allPay != 0 && (
+        {(allPay !== 0 && (
           <Alert variant="success" id="allClientPayDiv">
             <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
             <div style={{ textAlign: "center" }}>
@@ -46,13 +38,12 @@ const ViewHours = () => {
             <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
           </Alert>
         )) ||
-          !allPay ||
-          (+allPay == 0 && (
-            <h3 style={{ textAlign: "center" }}>
+          (allPay === 0 && (
+            <h3 style={{ textAlign: "center", margin: "20px 0 0 0" }}>
               You currently have no hours logged.
             </h3>
           ))}
-        <ViewHoursAccordion userHrs={userHrs} />
+        <ViewHoursAccordion userHrs={userHrs?.clients} />
       </form>
     </div>
   );
