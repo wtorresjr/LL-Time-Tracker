@@ -45,7 +45,12 @@ export const addHoursForClient = (hoursWorked, id) => async (dispatch) => {
   }
 };
 
-const initialState = {};
+const initialState = {
+  userHours: {
+    All_Client_Pay: 0,
+  },
+  addedHours: {},
+};
 
 const hoursReducer = (state = initialState, action) => {
   switch (action.type) {
