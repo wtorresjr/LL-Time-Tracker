@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
           include: {
             model: hoursworked,
             // required: false,
-            attributes: ["day_worked", "total_hours"],
+            attributes: ["day_worked", "total_hours", "id"],
             where,
           },
         },

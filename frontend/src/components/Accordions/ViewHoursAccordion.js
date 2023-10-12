@@ -49,7 +49,7 @@ function ViewHoursAccordion({ userHrs }) {
 
                 {hours?.hoursworkeds?.map((day) => {
                   return (
-                    <Table bordered key={day?.day_worked}>
+                    <Table bordered key={day?.id}>
                       <tbody>
                         <tr className="hrsDisplayRow">
                           <td>{day?.day_worked}</td>
