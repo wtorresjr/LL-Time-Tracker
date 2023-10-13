@@ -45,15 +45,15 @@ router.get("/", async (req, res) => {
 
         for (let j = 0; j < client.hoursworkeds.length; j++) {
           let hours = client.hoursworkeds[j].total_hours;
-          hoursTab += hours;
+          hoursTab += parseFloat(hours);
         }
         client.setDataValue("TotalClientHours", hoursTab);
         let payout = (hoursTab * hourlyRate).toFixed(2);
         allPay += Number(payout);
-        // client.setDataValue("Total_Pay", Number(payout));
+        client.setDataValue("Total_Pay", parseFloat(payout));
       }
 
-      // clientHours.setDataValue("All_Client_Pay", Number(allPay));
+      clientHours.setDataValue("All_Client_Pay", parseInt(allPay).toFixed(2));
 
       res.status(200).json(clientHours);
       console.log("Client Hours Output", clientHours);

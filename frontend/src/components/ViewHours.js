@@ -50,7 +50,7 @@ const ViewHours = () => {
                 id="iconPadding"
               ></i>
             </Alert>
-            <ViewHoursAccordion userHrs={userHrs?.clients} allPay={allPay} />
+            <ViewHoursAccordion userHrs={userHrs?.clients} />
           </>
         )) ||
           (!allPayLoaded && (

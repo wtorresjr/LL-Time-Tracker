@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 
 import "../../styles/app.css";
 
-function ViewHoursAccordion({ userHrs, allPay }) {
+function ViewHoursAccordion({ userHrs }) {
   return (
     <div>
       <Accordion className="genInputs" alwaysOpen>
