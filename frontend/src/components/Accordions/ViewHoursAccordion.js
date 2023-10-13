@@ -5,7 +5,7 @@ import Table from "react-bootstrap/Table";
 
 import "../../styles/app.css";
 
-function ViewHoursAccordion({ userHrs }) {
+function ViewHoursAccordion({ userHrs, allPay }) {
   return (
     <div>
       <Accordion className="genInputs" alwaysOpen>
@@ -28,7 +28,7 @@ function ViewHoursAccordion({ userHrs }) {
                   <p style={{ fontWeight: "bolder" }}>
                     Total Pay:{" "}
                     <Badge bg="success" style={{ fontSize: "18px" }}>
-                      ${hours?.Total_Pay}
+                      ${+(hours?.hourly_rate * hours?.TotalClientHours).toFixed(2)}
                     </Badge>
                   </p>
                 </div>

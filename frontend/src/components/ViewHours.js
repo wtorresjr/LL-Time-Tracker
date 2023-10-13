@@ -9,7 +9,8 @@ const ViewHours = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state?.session?.user);
   const userHrs = useSelector((state) => state?.hoursReducer?.userHours);
-  const allPay = useSelector(() => userHrs?.All_Client_Pay);
+  const allPay = 10;
+
   const [allPayLoaded, setAllPayLoaded] = useState(
     allPay !== null && allPay !== undefined
   );
@@ -35,20 +36,28 @@ const ViewHours = () => {
       </div>
       <form>
         {(allPayLoaded && (
-          <Alert variant="success" id="allClientPayDiv">
-            <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
-            <div style={{ textAlign: "center" }}>
-              Current Pay (All Clients): ${allPay}
-            </div>
-            <i className="fa-solid fa-sack-dollar fa-2xl" id="iconPadding"></i>
-          </Alert>
+          <>
+            <Alert variant="success" id="allClientPayDiv">
+              <i
+                className="fa-solid fa-sack-dollar fa-2xl"
+                id="iconPadding"
+              ></i>
+              <div style={{ textAlign: "center" }}>
+                Current Pay (All Clients): ${allPay}
+              </div>
+              <i
+                className="fa-solid fa-sack-dollar fa-2xl"
+                id="iconPadding"
+              ></i>
+            </Alert>
+            <ViewHoursAccordion userHrs={userHrs?.clients} allPay={allPay} />
+          </>
         )) ||
           (!allPayLoaded && (
             <h3 style={{ textAlign: "center", margin: "20px 0 0 0" }}>
               You currently have no hours logged.
             </h3>
           ))}
-        <ViewHoursAccordion userHrs={userHrs?.clients} />
       </form>
     </div>
   );
