@@ -28,7 +28,7 @@ function ViewHoursAccordion({ userHrs, allPay }) {
                   <p style={{ fontWeight: "bolder" }}>
                     Total Pay:{" "}
                     <Badge bg="success" style={{ fontSize: "18px" }}>
-                      ${Number(hours?.hourly_rate * hours?.TotalClientHours).toFixed(2)}
+                      ${+hours?.hourly_rate * +hours?.TotalClientHours}
                     </Badge>
                   </p>
                 </div>
