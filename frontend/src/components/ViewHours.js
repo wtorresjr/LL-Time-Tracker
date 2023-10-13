@@ -48,7 +48,7 @@ const ViewHours = () => {
               You currently have no hours logged.
             </h3>
           ))}
-        <ViewHoursAccordion userHrs={userHrs?.clients} />
+        <ViewHoursAccordion userHrs={userHrs?.clients} allPay={allPay} />
       </form>
     </div>
   );

@@ -48,12 +48,12 @@ router.get("/", async (req, res) => {
           hoursTab += hours;
         }
         client.setDataValue("TotalClientHours", hoursTab);
-        let payout = (+hoursTab * +hourlyRate).toFixed(2);
-        allPay += parseFloat(+payout);
-        client.setDataValue("Total_Pay", parseFloat(payout));
+        let payout = (hoursTab * hourlyRate).toFixed(2);
+        allPay += parseFloat(Number(payout));
+        client.setDataValue("Total_Pay", parseFloat(Number(payout)));
       }
       
-      clientHours.setDataValue("All_Client_Pay", parseFloat(allPay));
+      clientHours.setDataValue("All_Client_Pay", parseFloat(Number(allPay)));
       
       res.status(200).json(clientHours);
       console.log("Client Hours Output", clientHours);
