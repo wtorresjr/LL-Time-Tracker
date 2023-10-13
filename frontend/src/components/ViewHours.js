@@ -9,7 +9,9 @@ const ViewHours = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state?.session?.user);
   const userHrs = useSelector((state) => state?.hoursReducer?.userHours);
-  const allPay = 10;
+  const allPay = useSelector(
+    (state) => state?.hoursReducer?.userHours?.All_Client_Pay
+  );
 
   const [allPayLoaded, setAllPayLoaded] = useState(
     allPay !== null && allPay !== undefined
@@ -19,7 +21,7 @@ const ViewHours = () => {
     const fetchData = async () => {
       await dispatch(fetchHours(sessionUser?.id));
       await dispatch(fetchClientList(sessionUser?.id));
-      setAllPayLoaded(+allPay !== 0);
+      setAllPayLoaded(allPay !== 0);
     };
     fetchData();
   }, [dispatch, sessionUser, allPay]);
@@ -43,7 +45,7 @@ const ViewHours = () => {
                 id="iconPadding"
               ></i>
               <div style={{ textAlign: "center" }}>
-                Current Pay (All Clients): ${allPay}
+                Current Pay (All Clients): ${parseFloat(allPay)}
               </div>
               <i
                 className="fa-solid fa-sack-dollar fa-2xl"
