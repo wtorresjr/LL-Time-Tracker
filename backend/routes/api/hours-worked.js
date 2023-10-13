@@ -48,15 +48,17 @@ router.get("/", async (req, res) => {
           hoursTab += hours;
         }
         client.setDataValue("TotalClientHours", hoursTab);
-        let payout = (hoursTab * hourlyRate).toFixed(2);
-        allPay += parseFloat(payout);
+        let payout = (+hoursTab * +hourlyRate).toFixed(2);
+        console.log("Payout in For Loop", payout);
+        allPay += parseFloat(+payout);
         client.setDataValue("Total_Pay", parseFloat(payout));
+        console.log("Total Pay", Total_Pay);
       }
 
       clientHours.setDataValue("All_Client_Pay", parseFloat(allPay));
 
       res.status(200).json(clientHours);
-      console.log("Server Response:", clientHours);
+      console.log("Client Hours Output", clientHours);
     } else {
       res.status(401).json({ error: "Unauthorized - Login to continue" });
     }
