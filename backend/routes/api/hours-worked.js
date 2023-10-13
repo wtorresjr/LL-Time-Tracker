@@ -49,8 +49,8 @@ router.get("/", async (req, res) => {
         }
         client.setDataValue("TotalClientHours", hoursTab);
         let payout = (+hoursTab * +hourlyRate).toFixed(2);
-        console.log("Payout in For Loop", payout);
         allPay += parseFloat(+payout);
+        console.log("AllPay in For Loop", allPay);
         client.setDataValue("Total_Pay", parseFloat(payout));
         console.log("Total Pay", Total_Pay);
       }
