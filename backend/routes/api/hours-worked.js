@@ -79,7 +79,7 @@ router.post("/add-hours/:clientId", async (req, res) => {
         day_worked: day_worked,
         start_time: start_time,
         end_time: end_time,
-        total_hours: total_hours,
+        total_hours: parseFloat(total_hours),
         clientId: parseInt(clientId),
         employeeId: req.user.id,
       });
