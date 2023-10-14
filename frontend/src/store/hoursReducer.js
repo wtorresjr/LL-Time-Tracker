@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_HOURS = "hours/loadhours";
 const ADD_HOURS = "hours/add-hours";
+const DELETE_HOURS = "hours/delete-hours";
 
 export const loadHours = (employeehours) => {
   return {
@@ -14,7 +15,7 @@ export const fetchHours = (employeeId) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/hours`);
     const userHours = await response.json();
-    console.log("Fetched user hours:", userHours);
+    // console.log("Fetched user hours:", userHours);
     dispatch(loadHours(userHours));
     return userHours;
   } catch (err) {
@@ -46,11 +47,34 @@ export const addHoursForClient = (hoursWorked, id) => async (dispatch) => {
   }
 };
 
+export const deleteHours = (removedHours) => {
+  return {
+    type: DELETE_HOURS,
+    removedHours,
+  };
+};
+
+export const deletePaidHours = (dayId) => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/hours/delete-hours/${dayId}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      const hoursToDel = await response.json();
+      dispatch(deleteHours(hoursToDel));
+      return hoursToDel;
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
 const initialState = {
   userHours: {
     All_Client_Pay: 0,
   },
   addedHours: {},
+  removedHours: {},
 };
 
 const hoursReducer = (state = initialState, action) => {
@@ -59,6 +83,9 @@ const hoursReducer = (state = initialState, action) => {
       return { ...state, userHours: { ...action.employeehours } };
     case ADD_HOURS:
       return { ...state, addedHours: { ...action.addedHours } };
+    case DELETE_HOURS:
+      return { ...state, removedHours: { ...action.deleteHours } };
+
     default:
       return state;
   }

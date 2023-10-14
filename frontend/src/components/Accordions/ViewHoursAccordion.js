@@ -2,12 +2,37 @@ import Badge from "react-bootstrap/Badge";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import PaidHoursModal from "../OpenModalButton/PaidHoursModal";
+import { useState, } from "react";
 
 import "../../styles/app.css";
+// import { useDispatch } from "react-redux";
 
 function ViewHoursAccordion({ userHrs }) {
+  const [modalShow, setModalShow] = useState(false);
+  const [dayId, setDayId] = useState(0);
+  const [delDate, setDelDate] = useState(0);
+  const [clientInit, setClientInit] = useState(0);
+  const [totHours, setTotHours] = useState(0);
+
+  const openConfirmDelete = (dayId, delDate, clientInit, totHours) => {
+    setModalShow(true);
+    setDelDate(delDate);
+    setClientInit(clientInit);
+    setDayId(dayId);
+    setTotHours(totHours);
+  };
+
   return (
     <div>
+      <PaidHoursModal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        dayid={dayId}
+        clientinfo={clientInit}
+        deldate={delDate}
+        tothrs={totHours}
+      />
       <Accordion className="genInputs" alwaysOpen>
         {userHrs?.map((hours) => {
           return (
@@ -62,7 +87,14 @@ function ViewHoursAccordion({ userHrs }) {
                             <Button
                               variant="danger"
                               style={{ width: "100%" }}
-                              onClick={(e) => alert("Feature Coming Soon...")}
+                              onClick={(e) =>
+                                openConfirmDelete(
+                                  +day?.id,
+                                  day?.day_worked,
+                                  hours?.client_initials,
+                                  day?.total_hours
+                                )
+                              }
                             >
                               Paid?
                             </Button>

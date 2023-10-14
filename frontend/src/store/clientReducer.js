@@ -78,7 +78,7 @@ const clientReducer = (state = initialState, action) => {
     case ADD_CLIENT:
       return {
         ...state,
-        ...action.newClient,
+        clients: [...state.clients, action.newClient],
       };
     case GET_CLIENT_LIST:
       return {

@@ -53,7 +53,7 @@ router.delete("/delete/:clientId", async (req, res) => {
     const clientToDelete = await client.findByPk(clientId, {
       attributes: ["employeeId",'id'],
     });
-    console.log("Client To Delete", clientToDelete);
+    // console.log("Client To Delete", clientToDelete);
     if (clientToDelete && +clientToDelete.employeeId === +userId) {
       await clientToDelete.destroy();
       res.json({ message: "Successfully Deleted" });

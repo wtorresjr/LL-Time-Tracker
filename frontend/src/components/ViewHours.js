@@ -13,6 +13,7 @@ const ViewHours = () => {
     (state) => state?.hoursReducer?.userHours?.All_Client_Pay
   );
 
+
   const [allPayLoaded, setAllPayLoaded] = useState(
     allPay !== null && allPay !== undefined
   );
@@ -26,10 +27,10 @@ const ViewHours = () => {
     fetchData();
   }, [dispatch, sessionUser, allPay]);
 
-  useEffect(() => {
-    console.log("Redux State", userHrs);
-    console.log("All_Client_Pay:", allPay);
-  }, [allPay, userHrs]);
+  // useEffect(() => {
+  //   console.log("Redux State", userHrs);
+  //   console.log("All_Client_Pay:", allPay);
+  // }, [allPay, userHrs]);
 
   return (
     <div className="generalContainer">
