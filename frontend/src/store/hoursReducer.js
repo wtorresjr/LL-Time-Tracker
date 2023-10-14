@@ -15,7 +15,6 @@ export const fetchHours = (employeeId) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/hours`);
     const userHours = await response.json();
-    // console.log("Fetched user hours:", userHours);
     dispatch(loadHours(userHours));
     return userHours;
   } catch (err) {

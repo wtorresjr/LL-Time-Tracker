@@ -100,16 +100,12 @@ router.post("/add-hours/:clientId", async (req, res) => {
 router.delete("/delete-hours/:hoursId", async (req, res) => {
   const { hoursId } = req.params;
   console.log(+hoursId, "Hours ID to find");
-  // console.log(req, "Request Object");
   try {
     if (req.user) {
       const hoursToDelete = await hoursworked.findByPk(+hoursId, {
         attributes: ["id", "employeeId"],
       });
       if (hoursToDelete && hoursToDelete.employeeId === req.user.id) {
-        // console.log("Inside API delete if block", hoursToDelete);
-        console.log("Hours to delete employee Id", hoursToDelete.employeeId);
-        console.log("Req User ID", req.user.id);
         await hoursToDelete.destroy();
       } else {
         return res.status(404).json({ message: "Record Not Found." });

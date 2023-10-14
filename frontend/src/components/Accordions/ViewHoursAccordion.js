@@ -6,7 +6,6 @@ import PaidHoursModal from "../OpenModalButton/PaidHoursModal";
 import { useState, } from "react";
 
 import "../../styles/app.css";
-// import { useDispatch } from "react-redux";
 
 function ViewHoursAccordion({ userHrs }) {
   const [modalShow, setModalShow] = useState(false);
