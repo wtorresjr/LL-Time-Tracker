@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "production") {
 const seedClients = [
   {
     client_initials: "EE",
-    hourly_rate: 25.5,
+    hourly_rate: 25.0,
     employeeId: 1,
     guardianName: "John",
     guardianPhone: "111-111-1111",

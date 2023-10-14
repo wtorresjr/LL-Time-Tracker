@@ -53,10 +53,10 @@ router.get("/", async (req, res) => {
         client.setDataValue("Total_Pay", parseFloat(payout));
       }
 
-      clientHours.setDataValue("All_Client_Pay", parseFloat(allPay));
+      clientHours.setDataValue("All_Client_Pay", parseFloat(allPay).toFixed(2));
 
       res.status(200).json(clientHours);
-      console.log("Client Hours Output", clientHours);
+      // console.log("Client Hours Output", clientHours);
     } else {
       res.status(401).json({ error: "Unauthorized - Login to continue" });
     }

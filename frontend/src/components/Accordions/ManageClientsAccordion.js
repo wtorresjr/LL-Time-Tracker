@@ -1,7 +1,7 @@
 import Badge from "react-bootstrap/Badge";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DeleteClientModal from "../OpenModalButton/DeleteClientModal";
 import "../../styles/app.css";
 import { useDispatch } from "react-redux";
