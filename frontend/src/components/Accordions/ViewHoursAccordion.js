@@ -154,7 +154,6 @@ function ViewHoursAccordion({ userHrs }) {
                     variant="warning"
                     onClick={() => {
                       setEmailHours({ hours });
-                      // handleEmail();
                     }}
                   >
                     Email Hours for {hours?.client_initials}
