@@ -3,7 +3,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import PaidHoursModal from "../OpenModalButton/PaidHoursModal";
-import { useState, } from "react";
+import { useEffect, useState } from "react";
 
 import "../../styles/app.css";
 
@@ -13,6 +13,7 @@ function ViewHoursAccordion({ userHrs }) {
   const [delDate, setDelDate] = useState(0);
   const [clientInit, setClientInit] = useState(0);
   const [totHours, setTotHours] = useState(0);
+  const [emailHours, setEmailHours] = useState();
 
   const openConfirmDelete = (dayId, delDate, clientInit, totHours) => {
     setModalShow(true);
@@ -21,6 +22,43 @@ function ViewHoursAccordion({ userHrs }) {
     setDayId(dayId);
     setTotHours(totHours);
   };
+
+  const handleEmail = () => {
+    if (emailHours) {
+      let hoursToEmail = emailHours.hours;
+      let hoursWorked = hoursToEmail.hoursworkeds;
+      const subject = `Hours for ${hoursToEmail.client_initials}`;
+
+      const body = `
+      Hi, Here are the hours for ${hoursToEmail.client_initials}:
+
+      Client: ${hoursToEmail.client_initials}
+      Hourly Rate: $${hoursToEmail.hourly_rate} 
+      Total Hours: ${hoursToEmail.TotalClientHours} hours
+      Total Client Pay: $${hoursToEmail.Total_Pay} 
+
+      Hours Worked:
+      ${hoursWorked.map((hours) => {
+        return `\n      Day Worked: ${hours.day_worked} == Hours Worked: ${
+          hours.total_hours
+        }\n      Pay For Day: $${(
+          hours.total_hours * hoursToEmail.hourly_rate
+        ).toFixed(2)}\n`;
+      })}
+      Total Client Pay: $${hoursToEmail.Total_Pay}
+            `;
+
+      const mailtoLink = `mailto:?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
+
+      window.location.href = mailtoLink;
+    }
+  };
+
+  useEffect(() => {
+    handleEmail();
+  }, [emailHours]);
 
   return (
     <div>
@@ -103,6 +141,32 @@ function ViewHoursAccordion({ userHrs }) {
                     </Table>
                   );
                 })}
+                <div
+                  style={{
+                    margin: "25px 0 0 0",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "space-around",
+                    alignItems: "center",
+                  }}
+                >
+                  <Button
+                    variant="warning"
+                    onClick={() => {
+                      setEmailHours({ hours });
+                      // handleEmail();
+                    }}
+                  >
+                    Email Hours for {hours?.client_initials}
+                    <i
+                      className="fa-regular fa-envelope fa-xl"
+                      style={{
+                        backgroundColor: "transparent",
+                        padding: "0 0 0 10px",
+                      }}
+                    ></i>
+                  </Button>{" "}
+                </div>
               </Accordion.Body>
             </Accordion.Item>
           );

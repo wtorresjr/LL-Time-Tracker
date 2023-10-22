@@ -26,11 +26,7 @@ const ViewHours = () => {
     };
     fetchData();
   }, [dispatch, sessionUser, allPay]);
-
-  // useEffect(() => {
-  //   console.log("Redux State", userHrs);
-  //   console.log("All_Client_Pay:", allPay);
-  // }, [allPay, userHrs]);
+  
 
   return (
     <div className="generalContainer">
