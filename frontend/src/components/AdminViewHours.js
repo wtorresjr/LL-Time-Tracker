@@ -1,30 +1,35 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHours } from "../store/hoursReducer";
-import { fetchClientList } from "../store/clientReducer";
-import ViewHoursAccordion from "./Accordions/ViewHoursAccordion";
+import AdminViewAccordion from "./Accordions/AdminViewAccordion";
+import { getAdminHours } from "../store/hoursReducer";
 import Alert from "react-bootstrap/Alert";
 
 const AdminViewHours = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state?.session?.user);
-  const userHrs = useSelector((state) => state?.hoursReducer?.userHours);
+  const employeeHours = useSelector(
+    (state) => state?.hoursReducer?.allEmployeeHours?.employeeHours
+  );
   const allPay = useSelector(
-    (state) => state?.hoursReducer?.userHours?.All_Client_Pay
+    (state) => state?.hoursReducer?.allEmployeeHours?.Owed_To_Employees
+  );
+  const billHours = useSelector(
+    (state) => state?.hoursReducer?.allEmployeeHours?.Hours_To_Bill
+  );
+  const avgTechCost = useSelector(
+    (state) => state?.hoursReducer?.allEmployeeHours?.Avg_Tech_Cost
   );
 
-  const [allPayLoaded, setAllPayLoaded] = useState(
-    allPay !== null && allPay !== undefined
-  );
+  let adminView = [];
 
   useEffect(() => {
     const fetchData = async () => {
-      await dispatch(fetchHours(sessionUser?.id));
-      await dispatch(fetchClientList(sessionUser?.id));
-      setAllPayLoaded(allPay !== 0);
+      if (sessionUser.is_admin === true) {
+        adminView = await dispatch(getAdminHours());
+      }
     };
     fetchData();
-  }, [dispatch, sessionUser, allPay]);
+  }, [dispatch, sessionUser]);
 
   return (
     <div className="generalContainer">
@@ -32,7 +37,7 @@ const AdminViewHours = () => {
         <h1>Admin View Hours</h1>
       </div>
       <form>
-        {(allPayLoaded && (
+        {(adminView && (
           <>
             <Alert variant="success" id="allClientPayDiv">
               <i
@@ -40,17 +45,19 @@ const AdminViewHours = () => {
                 id="iconPadding"
               ></i>
               <div style={{ textAlign: "center" }}>
-                All Employees Earnings: ${parseFloat(allPay)}
+                <p>All Employees Earnings: ${parseFloat(allPay)}</p>
+                <p>Hours To Bill: {parseFloat(billHours)}</p>
+                <p>Average Tech Cost: ${parseFloat(avgTechCost)}</p>
               </div>
               <i
                 className="fa-solid fa-sack-dollar fa-2xl"
                 id="iconPadding"
               ></i>
             </Alert>
-            <ViewHoursAccordion userHrs={userHrs?.clients} />
+            <AdminViewAccordion employeeHours={employeeHours} />
           </>
         )) ||
-          (!allPayLoaded && (
+          (!adminView && (
             <h3 style={{ textAlign: "center", margin: "20px 0 0 0" }}>
               You currently have no hours logged.
             </h3>

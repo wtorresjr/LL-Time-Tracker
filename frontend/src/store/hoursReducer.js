@@ -97,6 +97,7 @@ const initialState = {
   },
   addedHours: {},
   removedHours: {},
+  allEmployeeHours: {},
 };
 
 const hoursReducer = (state = initialState, action) => {
