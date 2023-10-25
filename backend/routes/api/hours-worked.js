@@ -3,6 +3,35 @@ const router = express.Router();
 const { employee, hoursworked, client } = require("../../db/models");
 const { Op, Sequelize } = require("sequelize");
 
+router.get("/admin-view", async (req, res) => {
+  try {
+    if (req.user && req.user.is_admin === true) {
+      let employeeHours = await employee.findAll({
+        include: {
+          model: client,
+          attributes: ["client_initials", "hourly_rate"],
+          include: {
+            model: hoursworked,
+            attributes: ["day_worked", "total_hours"],
+          },
+        },
+      });
+
+      res.status(200).json(employeeHours);
+      // res.status(200).json("User has admin rights!");
+    } else {
+      res.status(403).json("User does NOT have admin rights!!!");
+      // console.log("User does NOT have admin rights");
+    }
+  } catch (err) {
+    const errors = [];
+    err.errors.forEach((er) => {
+      errors.push(er.message);
+    });
+    res.json(errors);
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     if (req.user) {

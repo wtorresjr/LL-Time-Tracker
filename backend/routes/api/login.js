@@ -41,12 +41,12 @@ router.post("/", validateLogin, async (req, res, next) => {
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
+    is_admin: user.is_admin,
   };
-
 
   setTokenCookie(res, safeUser);
 
-  
+  console.log(safeUser, "<======Safe User");
   return res.json({
     user: safeUser,
   });
@@ -60,6 +60,7 @@ router.get("/", (req, res) => {
       email: user.email,
       firstName: user.firstName,
       lastName: user.lastName,
+      is_admin: user.is_admin,
     };
     return res.json({
       user: safeUser,

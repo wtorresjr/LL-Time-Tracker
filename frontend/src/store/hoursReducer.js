@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_HOURS = "hours/loadhours";
 const ADD_HOURS = "hours/add-hours";
 const DELETE_HOURS = "hours/delete-hours";
+const EMPLOYEE_HOURS = "hours/employee-hours";
 
 export const loadHours = (employeehours) => {
   return {
@@ -68,6 +69,28 @@ export const deletePaidHours = (dayId) => async (dispatch) => {
   }
 };
 
+export const adminHours = (allEmployeeHours) => {
+  return {
+    type: EMPLOYEE_HOURS,
+    allEmployeeHours,
+  };
+};
+
+export const getAdminHours = () => async (dispatch) => {
+  try {
+    const response = await csrfFetch(`/api/hours/admin-view`, {
+      method: "GET",
+    });
+    if (response.ok) {
+      const employeeHours = await response.json();
+      dispatch(adminHours(employeeHours));
+      return employeeHours;
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
 const initialState = {
   userHours: {
     All_Client_Pay: 0,
@@ -84,6 +107,8 @@ const hoursReducer = (state = initialState, action) => {
       return { ...state, addedHours: { ...action.addedHours } };
     case DELETE_HOURS:
       return { ...state, removedHours: { ...action.deleteHours } };
+    case EMPLOYEE_HOURS:
+      return { ...state, allEmployeeHours: { ...action.allEmployeeHours } };
 
     default:
       return state;

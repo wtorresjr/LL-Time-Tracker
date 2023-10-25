@@ -54,6 +54,7 @@ export const login = (user) => async (dispatch) => {
     }),
   });
   const data = await response.json();
+  console.log(data, "Session Reducer");
   dispatch(setUser(data.user));
   return response;
 };

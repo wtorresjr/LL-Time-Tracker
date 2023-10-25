@@ -54,13 +54,15 @@ module.exports = (sequelize, DataTypes) => {
           isAlpha: true,
         },
       },
+      is_admin: {
+        type: DataTypes.BOOLEAN,
+      },
     },
     {
       sequelize,
       modelName: "employee",
       defaultScope: {
-        attributes:
-          ["firstName", "lastName"],
+        attributes: ["firstName", "lastName"],
       },
     }
   );
