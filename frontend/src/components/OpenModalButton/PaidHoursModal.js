@@ -18,7 +18,9 @@ const PaidHoursModal = (props) => {
         delThis = await dispatch(deletePaidHours(sessionUser, props.dayid));
       } else {
         const hourIds = props.dayid.map((hour) => hour.id);
-        console.log(hourIds, "You are bulk deleting");
+        delThis = await hourIds.map((id) =>
+          dispatch(deletePaidHours(sessionUser, id))
+        );
       }
 
       if (delThis) {

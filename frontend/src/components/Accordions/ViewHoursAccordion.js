@@ -171,15 +171,19 @@ function ViewHoursAccordion({ userHrs }) {
                       }}
                     ></i>
                   </Button>{" "}
-                  <Button
-                    variant="danger"
-                    style={{ fontSize: "18px" }}
-                    onClick={() => {
-                      markAllPaid(hours.hoursworkeds, hours.client_initials);
-                    }}
-                  >
-                    All Paid?
-                  </Button>
+                  {hours.hoursworkeds.length > 1 ? (
+                    <Button
+                      variant="danger"
+                      style={{ fontSize: "18px" }}
+                      onClick={() => {
+                        markAllPaid(hours.hoursworkeds, hours.client_initials);
+                      }}
+                    >
+                      All Paid?
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </Accordion.Body>
             </Accordion.Item>
