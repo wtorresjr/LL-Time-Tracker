@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewClient, fetchClientList } from "../store/clientReducer";
 import CreatedClient from "./CreatedClient";
@@ -18,36 +18,62 @@ const AddNewClient = () => {
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [submittedData, setSubmittedData] = useState(null);
 
+  const caretPositionRef = useRef(0);
   const errors = {};
+  useEffect(() => {
+    const regexLettersOnly = /^[A-Z a-z]*$/;
+    const regexPhoneNum = /^[0-9-]*$/;
 
-  // useEffect(() => {
-  //   dispatch(fetchClientList());
-  // }, [dispatch]);
+    const validateInput = () => {
+      if (!guardianName || guardianName.length < 2)
+        errors.guardianName = "Guardian Name is required";
+      else if (!regexLettersOnly.test(guardianName)) {
+        errors.guardianName =
+          "Guardian name cannot include numbers or special characters";
+      }
+
+      if (telephone.length < 12) errors.telephone = "Telephone is required";
+      if (!regexPhoneNum.test(telephone)) {
+        errors.telephone = "Telephone number must only be numbers";
+      }
+      if (!clientInitials.length)
+        errors.clientInitials = "Client initials are required";
+      else if (clientInitials.length > 3)
+        errors.clientInitials = "Initials must be 2 or 3 characters long";
+      else if (!regexLettersOnly.test(clientInitials))
+        errors.clientInitials =
+          "Client initials cannot include numbers or special characters";
+
+      if (hourlyRate.length < 4) errors.hourlyRate = "Hourly rate is required";
+
+      setErrors(errors);
+
+      if (
+        !errors.guardianName &&
+        !errors.telephone &&
+        !errors.clientInitials &&
+        !errors.hourlyRate
+      ) {
+        setDisabledBtn(false);
+      }
+    };
+    validateInput();
+  }, [guardianName, telephone, clientInitials, hourlyRate]);
 
   useEffect(() => {
-    setClientInitials(clientInitials.toUpperCase());
-
-    if (!guardianName || guardianName.length < 2)
-      errors.guardianName = "Guardian Name is required";
-    if (telephone.length < 12) errors.telephone = "Telephone is required";
-    if (!clientInitials.length)
-      errors.clientInitials = "Client initials are required";
-    if (hourlyRate.length < 4) errors.hourlyRate = "Hourly rate is required";
-    setErrors(errors);
-
-    if (clientInitials.length > 3) {
-      errors.clientInitials = "Initials must be 2 or 3 characters long";
+    if (telephone.length === 3 || telephone.length === 7) {
+      setTelephone((prevTelephone) => {
+        caretPositionRef.current += 1;
+        return prevTelephone + "-";
+      });
     }
+  }, [telephone]);
 
-    if (
-      !errors.guardianName &&
-      !errors.telephone &&
-      !errors.clientInitials &&
-      !errors.hourlyRate
-    ) {
-      setDisabledBtn(false);
+  const checkKey = (e) => {
+    if (e.key === "Backspace") {
+      setTelephone("");
     }
-  }, [guardianName, telephone, clientInitials, hourlyRate]);
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -88,7 +114,7 @@ const AddNewClient = () => {
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
             value={guardianName}
-            onChange={(e) => setGuardianName(e.target.value)}
+            onChange={(e) => setGuardianName(e.target.value.toUpperCase())}
             required
           />
         </InputGroup>
@@ -105,7 +131,19 @@ const AddNewClient = () => {
             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
             placeholder="555-555-5555"
             value={telephone}
-            onChange={(e) => setTelephone(e.target.value)}
+            onKeyDown={checkKey}
+            onChange={(e) => {
+              setTelephone(e.target.value);
+              caretPositionRef.current = e.target.selectionStart;
+            }}
+            ref={(input) => {
+              if (input) {
+                input.setSelectionRange(
+                  caretPositionRef.current,
+                  caretPositionRef.current
+                );
+              }
+            }}
             required
           />
         </InputGroup>
@@ -120,9 +158,9 @@ const AddNewClient = () => {
             style={{ backgroundColor: "#d5ebff" }}
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
-            // pattern="[A-Z]{2,3}"
+            pattern="[A-Z]{2,3}"
             value={clientInitials}
-            onChange={(e) => setClientInitials(e.target.value)}
+            onChange={(e) => setClientInitials(e.target.value.toUpperCase())}
             placeholder="All capital letters 3 character max"
             required
           />
