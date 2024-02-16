@@ -9,8 +9,7 @@ import "../styles/app.css";
 
 const AddNewClient = () => {
   const dispatch = useDispatch();
-  const sessionUser = useSelector(
-    (state) => state?.session?.user);
+  const sessionUser = useSelector((state) => state?.session?.user);
   const [guardianName, setGuardianName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [clientInitials, setClientInitials] = useState("");
@@ -26,13 +25,19 @@ const AddNewClient = () => {
   // }, [dispatch]);
 
   useEffect(() => {
-    if (guardianName.length < 2)
+    setClientInitials(clientInitials.toUpperCase());
+
+    if (!guardianName || guardianName.length < 2)
       errors.guardianName = "Guardian Name is required";
     if (telephone.length < 12) errors.telephone = "Telephone is required";
-    if (clientInitials.length < 2)
+    if (!clientInitials.length)
       errors.clientInitials = "Client initials are required";
     if (hourlyRate.length < 4) errors.hourlyRate = "Hourly rate is required";
     setErrors(errors);
+
+    if (clientInitials.length > 3) {
+      errors.clientInitials = "Initials must be 2 or 3 characters long";
+    }
 
     if (
       !errors.guardianName &&
