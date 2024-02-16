@@ -31,6 +31,20 @@ function LoginPrompt() {
     );
   };
 
+  const demoLogin = () => {
+    // console.log("Demo Login");
+
+    setCredential("DemoUser@demo.com");
+    setPassword("password123");
+
+    return dispatch(sessionActions.login({ credential, password })).catch(
+      async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      }
+    );
+  };
+
   return (
     <div className="loginContainer">
       <form onSubmit={handleSubmit}>
@@ -82,6 +96,9 @@ function LoginPrompt() {
           <div className="d-grid gap-2">
             <Button variant="primary" size="lg" type="submit">
               Login
+            </Button>
+            <Button variant="warning" size="lg" onClick={demoLogin}>
+              Demo Login
             </Button>
           </div>
           <div style={{ margin: "20px 0 0 0" }}>
