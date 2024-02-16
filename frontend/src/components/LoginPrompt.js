@@ -32,17 +32,15 @@ function LoginPrompt() {
   };
 
   const demoLogin = () => {
-    // console.log("Demo Login");
-
-    setCredential("DemoUser@demo.com");
-    setPassword("password123");
-
-    return dispatch(sessionActions.login({ credential, password })).catch(
-      async (res) => {
-        const data = await res.json();
-        if (data && data.errors) setErrors(data.errors);
-      }
-    );
+    return dispatch(
+      sessionActions.login({
+        credential: "DemoUser@demo.com",
+        password: "password123",
+      })
+    ).catch(async (res) => {
+      const data = await res.json();
+      if (data && data.errors) setErrors(data.errors);
+    });
   };
 
   return (
