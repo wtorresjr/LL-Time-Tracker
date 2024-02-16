@@ -23,6 +23,7 @@ const AddNewClient = () => {
   useEffect(() => {
     const regexLettersOnly = /^[A-Z a-z]*$/;
     const regexPhoneNum = /^[0-9-]*$/;
+    const regexHrRate = /^[0-9.]*$/;
 
     const validateInput = () => {
       if (!guardianName || guardianName.length < 2)
@@ -36,7 +37,7 @@ const AddNewClient = () => {
       if (telephone.length > 12) {
         setTelephone(telephone.slice(0, 12));
       }
-      
+
       if (!regexPhoneNum.test(telephone)) {
         errors.telephone = "Telephone number must only be numbers";
       }
@@ -49,6 +50,10 @@ const AddNewClient = () => {
           "Client initials cannot include numbers or special characters";
 
       if (hourlyRate.length < 4) errors.hourlyRate = "Hourly rate is required";
+      if (!regexHrRate.test(hourlyRate)) {
+        errors.hourlyRate =
+          "Hourly can only contain numbers and a decimal point";
+      }
 
       setErrors(errors);
 
