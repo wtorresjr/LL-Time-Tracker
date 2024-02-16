@@ -34,9 +34,6 @@ const AddNewClient = () => {
       }
 
       if (telephone.length < 12) errors.telephone = "Telephone is required";
-      if (telephone.length > 12) {
-        setTelephone(telephone.slice(0, 12));
-      }
 
       if (!regexPhoneNum.test(telephone)) {
         errors.telephone = "Telephone number must only be numbers";
@@ -133,6 +130,7 @@ const AddNewClient = () => {
         <InputGroup size="lg" className="genInputs">
           <InputGroup.Text id="inputGroup-sizing-lg">Phone</InputGroup.Text>
           <Form.Control
+            maxLength={12}
             style={{ backgroundColor: "#d5ebff" }}
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
@@ -164,6 +162,7 @@ const AddNewClient = () => {
             Client Initials
           </InputGroup.Text>
           <Form.Control
+            maxLength={3}
             style={{ backgroundColor: "#d5ebff" }}
             aria-label="Large"
             aria-describedby="inputGroup-sizing-sm"
