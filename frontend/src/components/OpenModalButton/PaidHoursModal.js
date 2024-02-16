@@ -7,17 +7,19 @@ import { fetchHours } from "../../store/hoursReducer";
 
 const PaidHoursModal = (props) => {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state?.sesssion?.user?.id);
+  const sessionUser = useSelector((state) => state?.session?.user?.id);
 
   const deleteHours = async () => {
     try {
-      dispatch(deletePaidHours(props?.dayid));
+      const delThis = await dispatch(deletePaidHours(sessionUser, props.dayid));
 
-      await props.onHide(true);
-      dispatch(fetchClientList(sessionUser));
-      dispatch(fetchHours(sessionUser));
+      if (delThis) {
+        await dispatch(fetchHours(sessionUser));
+        await dispatch(fetchClientList(sessionUser));
+        await props.onHide(true);
+      }
     } catch (err) {
-      throw err;
+      console.error("Error deleting hours:", err);
     }
   };
 
