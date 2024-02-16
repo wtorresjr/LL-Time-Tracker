@@ -14,6 +14,7 @@ function ViewHoursAccordion({ userHrs }) {
   const [clientInit, setClientInit] = useState(0);
   const [totHours, setTotHours] = useState(0);
   const [emailHours, setEmailHours] = useState();
+  // const [hoursGroup, setHoursGroup] = useState();
 
   const openConfirmDelete = (dayId, delDate, clientInit, totHours) => {
     setModalShow(true);
@@ -54,6 +55,11 @@ function ViewHoursAccordion({ userHrs }) {
 
       window.location.href = mailtoLink;
     }
+  };
+
+  const markAllPaid = (hours, clientInitials) => {
+    // console.log(clientInitials, "Client Initials");s
+    openConfirmDelete(hours, 0, clientInitials);
   };
 
   useEffect(() => {
@@ -165,6 +171,19 @@ function ViewHoursAccordion({ userHrs }) {
                       }}
                     ></i>
                   </Button>{" "}
+                  {hours.hoursworkeds.length > 1 ? (
+                    <Button
+                      variant="danger"
+                      style={{ fontSize: "18px" }}
+                      onClick={() => {
+                        markAllPaid(hours.hoursworkeds, hours.client_initials);
+                      }}
+                    >
+                      All Paid?
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </Accordion.Body>
             </Accordion.Item>
