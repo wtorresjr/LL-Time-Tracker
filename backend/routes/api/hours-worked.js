@@ -73,6 +73,8 @@ router.post("/add-hours/:clientId", async (req, res) => {
   const { clientId } = req.params;
 
   const { day_worked, start_time, end_time, total_hours } = req.body;
+
+  console.log(req.body, "<------ADD HOURS REQ BODY");
   try {
     if (req.user) {
       const addedHours = await hoursworked.create({
@@ -99,7 +101,7 @@ router.post("/add-hours/:clientId", async (req, res) => {
 
 router.delete("/delete-hours/:hoursId", async (req, res) => {
   const { hoursId } = req.params;
-  console.log(+hoursId, "Hours ID to find");
+  // console.log(+hoursId, "Hours ID to find");
   try {
     if (req.user) {
       const hoursToDelete = await hoursworked.findByPk(+hoursId, {
@@ -107,6 +109,7 @@ router.delete("/delete-hours/:hoursId", async (req, res) => {
       });
       if (hoursToDelete && hoursToDelete.employeeId === req.user.id) {
         await hoursToDelete.destroy();
+        return res.status(200).json({ message: "Successfully deleted" });
       } else {
         return res.status(404).json({ message: "Record Not Found." });
       }
