@@ -17,7 +17,7 @@ const PaidHoursModal = (props) => {
       if (!bulkDelete) {
         delThis = await dispatch(deletePaidHours(sessionUser, props.dayid));
       } else {
-        
+        console.log("You are bulk deleting");
       }
 
       if (delThis) {
@@ -66,9 +66,9 @@ const PaidHoursModal = (props) => {
           </h4>
           {props?.dayid?.map((day) => {
             return (
-              <p key={day.day_worked}>
-                <label>Date: {day.day_worked}</label>
-                <br></br>
+              <p key={day.day_worked} className="hoursBulk">
+                <strong>Date: {day.day_worked}</strong>
+
                 <strong>Total Hours: {day.total_hours}</strong>
               </p>
             );
