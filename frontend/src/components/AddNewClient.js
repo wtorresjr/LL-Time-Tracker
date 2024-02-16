@@ -33,6 +33,10 @@ const AddNewClient = () => {
       }
 
       if (telephone.length < 12) errors.telephone = "Telephone is required";
+      if (telephone.length > 12) {
+        setTelephone(telephone.slice(0, 12));
+      }
+      
       if (!regexPhoneNum.test(telephone)) {
         errors.telephone = "Telephone number must only be numbers";
       }
