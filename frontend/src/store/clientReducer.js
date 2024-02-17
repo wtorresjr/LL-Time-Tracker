@@ -61,8 +61,8 @@ export const deleteFromClients = (clientId) => async (dispatch) => {
       method: "DELETE",
     });
     const clientDeleted = await response.json();
-    dispatch(deleteClient);
-    // dispatch(fetchClientList);
+    dispatch(deleteClient(clientDeleted));
+    dispatch(fetchClientList());
     return clientDeleted;
   } catch (err) {
     throw err;
@@ -70,25 +70,26 @@ export const deleteFromClients = (clientId) => async (dispatch) => {
 };
 
 const initialState = {
-  clients: [], // You might want to initialize it as an empty array
+  clients: [],
 };
 
 const clientReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_CLIENT:
+    case "clients/add-client":
       return {
         ...state,
         clients: [...state.clients, action.newClient],
       };
-    case GET_CLIENT_LIST:
+    case "clients/get-all-clients":
       return {
         ...state,
-        clients: Array.isArray(action.clientList) ? action.clientList : [],
+        clients: action.clientList, // Adjusted for the nested structure
       };
+    case "clients/delete-client":
+      // Ensure state.clients is an array before applying filter
+      const clientsArray = Array.isArray(state.clients) ? state.clients : [];
 
-    case DELETE_CLIENT:
-      // Filter out the deleted client from the clients array
-      const updatedClients = state.clients.filter(
+      const updatedClients = clientsArray.filter(
         (client) => client.id !== action.deletedClient.id
       );
       return {
