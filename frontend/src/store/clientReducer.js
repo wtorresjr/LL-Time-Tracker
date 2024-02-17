@@ -83,8 +83,9 @@ const clientReducer = (state = initialState, action) => {
     case GET_CLIENT_LIST:
       return {
         ...state,
-        clients: action.clientList,
+        clients: Array.isArray(action.clientList) ? action.clientList : [],
       };
+
     case DELETE_CLIENT:
       // Filter out the deleted client from the clients array
       const updatedClients = state.clients.filter(
@@ -100,4 +101,3 @@ const clientReducer = (state = initialState, action) => {
 };
 
 export default clientReducer;
-
