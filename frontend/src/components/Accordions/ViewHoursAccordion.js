@@ -58,7 +58,6 @@ function ViewHoursAccordion({ userHrs }) {
   };
 
   const markAllPaid = (hours, clientInitials) => {
-    // console.log(clientInitials, "Client Initials");s
     openConfirmDelete(hours, 0, clientInitials);
   };
 
