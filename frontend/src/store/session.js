@@ -1,4 +1,6 @@
+import { resetClient } from "./clientReducer";
 import { csrfFetch } from "./csrf";
+import { resetHours } from "./hoursReducer";
 
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
@@ -41,6 +43,8 @@ export const logout = () => async (dispatch) => {
     method: "DELETE",
   });
   dispatch(removeUser());
+  dispatch(resetHours());
+  dispatch(resetClient());
   return response;
 };
 
@@ -75,8 +79,8 @@ const sessionReducer = (state = initialState, action) => {
       newState.user = action.payload;
       return newState;
     case REMOVE_USER:
-      newState = Object.assign({}, state);
-      newState.user = null;
+      newState = { user: null };
+
       return newState;
     default:
       return state;
