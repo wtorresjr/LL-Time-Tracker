@@ -45,7 +45,7 @@ const PaidHoursModal = (props) => {
     } else {
       setBulkDelete(false);
     }
-  }, []);
+  }, [props.dayid]);
 
   return (
     <Modal
