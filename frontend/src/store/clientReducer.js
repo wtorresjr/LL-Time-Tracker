@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const ADD_CLIENT = "clients/add-clients";
 const GET_CLIENT_LIST = "clients/get-all-clients";
 const DELETE_CLIENT = "clients/delete-client";
+const RESET_CLIENT_LIST = "clients/reset-client-list";
 
 export const fetchClients = (clientList) => {
   return {
@@ -69,23 +70,29 @@ export const deleteFromClients = (clientId) => async (dispatch) => {
   }
 };
 
+export const resetClient = () => {
+  return {
+    type: RESET_CLIENT_LIST,
+  };
+};
+
 const initialState = {
   clients: [],
 };
 
 const clientReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "clients/add-client":
+    case ADD_CLIENT:
       return {
         ...state,
         clients: [...state.clients, action.newClient],
       };
-    case "clients/get-all-clients":
+    case GET_CLIENT_LIST:
       return {
         ...state,
-        clients: action.clientList, 
+        clients: action.clientList,
       };
-    case "clients/delete-client":
+    case DELETE_CLIENT:
       // Ensure state.clients is an array before applying filter
       const clientsArray = Array.isArray(state.clients) ? state.clients : [];
 
@@ -96,6 +103,12 @@ const clientReducer = (state = initialState, action) => {
         ...state,
         clients: updatedClients,
       };
+    case RESET_CLIENT_LIST:
+      const logoutState = {
+        ...state,
+        clients: null,
+      };
+      return logoutState;
     default:
       return state;
   }

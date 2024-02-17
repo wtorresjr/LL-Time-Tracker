@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_HOURS = "hours/loadhours";
 const ADD_HOURS = "hours/add-hours";
 const DELETE_HOURS = "hours/delete-hours";
+const RESET_HOURS = "hours/reset-hours";
 
 export const loadHours = (employeehours) => {
   return {
@@ -81,6 +82,12 @@ const initialState = {
   removedHours: {},
 };
 
+export const resetHours = () => {
+  return {
+    type: RESET_HOURS,
+  };
+};
+
 const hoursReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_HOURS:
@@ -126,6 +133,14 @@ const hoursReducer = (state = initialState, action) => {
         },
         removedHours: newRemovedHours,
       };
+    case RESET_HOURS:
+      const thisState = {
+        ...state,
+        userHours: null,
+        addedHours: null,
+        removedHours: null,
+      };
+      return thisState;
 
     default:
       return state;
