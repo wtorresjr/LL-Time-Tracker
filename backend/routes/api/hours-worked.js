@@ -43,6 +43,8 @@ router.get("/", async (req, res) => {
         let hoursTab = 0;
         let hourlyRate = clientHours.clients[i].hourly_rate;
 
+        // console.log(client.hoursworkeds, "Client Hours from API Route");
+
         for (let j = 0; j < client.hoursworkeds.length; j++) {
           let hours = client.hoursworkeds[j].total_hours;
           hoursTab += parseFloat(hours);

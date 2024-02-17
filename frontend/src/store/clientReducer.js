@@ -83,7 +83,7 @@ const clientReducer = (state = initialState, action) => {
     case "clients/get-all-clients":
       return {
         ...state,
-        clients: action.clientList, // Adjusted for the nested structure
+        clients: action.clientList, 
       };
     case "clients/delete-client":
       // Ensure state.clients is an array before applying filter
