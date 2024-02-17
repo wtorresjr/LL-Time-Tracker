@@ -24,9 +24,9 @@ const PaidHoursModal = (props) => {
       }
 
       if (delThis) {
+        await props.onHide(true);
         await dispatch(fetchHours(sessionUser));
         await dispatch(fetchClientList(sessionUser));
-        await props.onHide(true);
       }
     } catch (err) {
       console.error("Error deleting hours:", err);
