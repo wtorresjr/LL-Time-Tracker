@@ -20,9 +20,12 @@ function AdminViewAccordion({ employeeHours }) {
                   <div>
                     {employee?.firstName} {employee?.lastName} - Hours
                   </div>
-                  <Badge>
-                    Total Owed Employeed: ${employee?.Total_Employee_Pay}
-                  </Badge>
+                  <div>
+                    Total Owed Employee:{" "}
+                    <Badge bg="success" style={{ fontSize: "16px" }}>
+                      ${employee?.Total_Employee_Pay}
+                    </Badge>
+                  </div>
                 </div>
               </Accordion.Header>
               <Accordion.Body>

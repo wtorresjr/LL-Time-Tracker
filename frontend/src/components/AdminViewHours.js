@@ -45,7 +45,7 @@ const AdminViewHours = () => {
                 id="iconPadding"
               ></i>
               <div style={{ textAlign: "center" }}>
-                <p>All Employees Earnings: ${parseFloat(allPay)}</p>
+                <p>All Employee Earnings: ${parseFloat(allPay)}</p>
                 <p>Hours To Bill: {parseFloat(billHours)}</p>
                 <p>Average Tech Cost: ${parseFloat(avgTechCost)}</p>
               </div>

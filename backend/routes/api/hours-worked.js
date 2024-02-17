@@ -43,7 +43,10 @@ router.get("/admin-view", async (req, res) => {
             parseFloat(clientOwes.toFixed(2))
           );
         }
-        employee.setDataValue("Total_Employee_Pay", totalEmployeePay);
+        employee.setDataValue(
+          "Total_Employee_Pay",
+          totalEmployeePay.toFixed(2)
+        );
       }
 
       const empHoursObj = {
