@@ -58,13 +58,11 @@ export const deleteHours = (removedHours) => {
 
 export const deletePaidHours = (clientId, hoursId) => async (dispatch) => {
   try {
-    console.log(clientId, hoursId, "Delete Thunk Reached");
     const response = await csrfFetch(`/api/hours/delete-hours/${hoursId}`, {
       method: "DELETE",
     });
 
     if (response.ok) {
-      console.log(response, "<---------------------Response");
       const hoursToDel = await response.json();
       // Include clientId and hoursId in the action payload
       dispatch(deleteHours({ ...hoursToDel, clientId, hoursId }));
