@@ -98,6 +98,7 @@ router.get("/", async (req, res) => {
             // required: false,
             attributes: ["day_worked", "total_hours", "id"],
             where,
+            // order: ["day_worked", "ASC"],
           },
         },
         attributes: ["firstName", "lastName"],
@@ -110,8 +111,14 @@ router.get("/", async (req, res) => {
         let hoursTab = 0;
         let hourlyRate = clientHours.clients[i].hourly_rate;
 
-        for (let j = 0; j < client.hoursworkeds.length; j++) {
-          let hours = client.hoursworkeds[j].total_hours;
+        const sortedHours = client.hoursworkeds.sort(
+          (a, b) => new Date(b.day_worked) - new Date(a.day_worked)
+        );
+
+        for (let j = 0; j < sortedHours.length; j++) {
+          let hours = sortedHours[j].total_hours;
+          // for (let j = 0; j < client.hoursworkeds.length; j++) {
+          //   let hours = client.hoursworkeds[j].total_hours;
           hoursTab += parseFloat(hours);
         }
         client.setDataValue("TotalClientHours", hoursTab);
@@ -123,7 +130,6 @@ router.get("/", async (req, res) => {
       clientHours.setDataValue("All_Client_Pay", parseFloat(allPay).toFixed(2));
 
       res.status(200).json(clientHours);
-      // console.log("Client Hours Output", clientHours);
     } else {
       res.status(401).json({ error: "Unauthorized - Login to continue" });
     }
@@ -140,6 +146,7 @@ router.post("/add-hours/:clientId", async (req, res) => {
   const { clientId } = req.params;
 
   const { day_worked, start_time, end_time, total_hours } = req.body;
+
   try {
     if (req.user) {
       const addedHours = await hoursworked.create({
@@ -166,7 +173,6 @@ router.post("/add-hours/:clientId", async (req, res) => {
 
 router.delete("/delete-hours/:hoursId", async (req, res) => {
   const { hoursId } = req.params;
-  console.log(+hoursId, "Hours ID to find");
   try {
     if (req.user) {
       const hoursToDelete = await hoursworked.findByPk(+hoursId, {
@@ -174,6 +180,7 @@ router.delete("/delete-hours/:hoursId", async (req, res) => {
       });
       if (hoursToDelete && hoursToDelete.employeeId === req.user.id) {
         await hoursToDelete.destroy();
+        return res.status(200).json({ message: "Successfully deleted" });
       } else {
         return res.status(404).json({ message: "Record Not Found." });
       }

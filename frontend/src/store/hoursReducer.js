@@ -4,6 +4,7 @@ const LOAD_HOURS = "hours/loadhours";
 const ADD_HOURS = "hours/add-hours";
 const DELETE_HOURS = "hours/delete-hours";
 const EMPLOYEE_HOURS = "hours/employee-hours";
+const RESET_HOURS = "hours/reset-hours";
 
 export const loadHours = (employeehours) => {
   return {
@@ -15,9 +16,12 @@ export const loadHours = (employeehours) => {
 export const fetchHours = (employeeId) => async (dispatch) => {
   try {
     const response = await csrfFetch(`/api/hours`);
-    const userHours = await response.json();
-    dispatch(loadHours(userHours));
-    return userHours;
+
+    if (response.ok) {
+      const userHours = await response.json();
+      dispatch(loadHours(userHours));
+      return userHours;
+    }
   } catch (err) {
     throw err;
   }
@@ -54,14 +58,16 @@ export const deleteHours = (removedHours) => {
   };
 };
 
-export const deletePaidHours = (dayId) => async (dispatch) => {
+export const deletePaidHours = (clientId, hoursId) => async (dispatch) => {
   try {
-    const response = await csrfFetch(`/api/hours/delete-hours/${dayId}`, {
+    const response = await csrfFetch(`/api/hours/delete-hours/${hoursId}`, {
       method: "DELETE",
     });
+
     if (response.ok) {
       const hoursToDel = await response.json();
-      dispatch(deleteHours(hoursToDel));
+      // Include clientId and hoursId in the action payload
+      dispatch(deleteHours({ ...hoursToDel, clientId, hoursId }));
       return hoursToDel;
     }
   } catch (err) {
@@ -100,6 +106,12 @@ const initialState = {
   allEmployeeHours: {},
 };
 
+export const resetHours = () => {
+  return {
+    type: RESET_HOURS,
+  };
+};
+
 const hoursReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_HOURS:
@@ -107,7 +119,52 @@ const hoursReducer = (state = initialState, action) => {
     case ADD_HOURS:
       return { ...state, addedHours: { ...action.addedHours } };
     case DELETE_HOURS:
-      return { ...state, removedHours: { ...action.deleteHours } };
+      const { clientId, hoursId } = action.removedHours;
+      const newState = { ...state };
+
+      let newRemovedHours = { ...state.removedHours }; // Define newRemovedHours
+
+      const updatedClients = newState.userHours.clients.map((client) => {
+        if (client.id === clientId) {
+          const removedHours = client.hoursworkeds.find(
+            (hours) => hours.id === hoursId
+          );
+
+          // Add the removed hours to the removedHours slice
+          newRemovedHours = { ...newRemovedHours, [hoursId]: removedHours };
+
+          const updatedHoursWorkeds = client.hoursworkeds.filter(
+            (hours) => hours.id !== hoursId
+          );
+
+          return {
+            ...client,
+            hoursworkeds: updatedHoursWorkeds,
+            TotalClientHours: updatedHoursWorkeds.reduce(
+              (total, hours) => total + hours.total_hours,
+              0
+            ),
+          };
+        }
+        return client;
+      });
+
+      return {
+        ...newState,
+        userHours: {
+          ...newState.userHours,
+          clients: updatedClients,
+        },
+        removedHours: newRemovedHours,
+      };
+    case RESET_HOURS:
+      const thisState = {
+        ...state,
+        userHours: null,
+        addedHours: null,
+        removedHours: null,
+      };
+      return thisState;
     case EMPLOYEE_HOURS:
       return { ...state, allEmployeeHours: { ...action.allEmployeeHours } };
 

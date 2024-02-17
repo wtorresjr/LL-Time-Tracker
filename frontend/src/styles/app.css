@@ -62,6 +62,8 @@ form {
   display: flex;
   font-weight: bolder;
   justify-content: space-between;
+  width: 100%;
+  padding:0 50px 0 0
 }
 
 .hrsDisplayRow {
@@ -76,6 +78,7 @@ form {
 .hourlynPayDiv {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .titleHeaders {
@@ -125,4 +128,12 @@ form {
 
 i {
   padding: 0 10px;
+}
+
+.hoursBulk {
+  border: 1px solid rgb(90, 90, 90);
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
 }

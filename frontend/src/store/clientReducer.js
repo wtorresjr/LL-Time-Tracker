@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const ADD_CLIENT = "clients/add-clients";
 const GET_CLIENT_LIST = "clients/get-all-clients";
 const DELETE_CLIENT = "clients/delete-client";
+const RESET_CLIENT_LIST = "clients/reset-client-list";
 
 export const fetchClients = (clientList) => {
   return {
@@ -61,16 +62,22 @@ export const deleteFromClients = (clientId) => async (dispatch) => {
       method: "DELETE",
     });
     const clientDeleted = await response.json();
-    dispatch(deleteClient);
-    // dispatch(fetchClientList);
+    dispatch(deleteClient(clientDeleted));
+    dispatch(fetchClientList());
     return clientDeleted;
   } catch (err) {
     throw err;
   }
 };
 
+export const resetClient = () => {
+  return {
+    type: RESET_CLIENT_LIST,
+  };
+};
+
 const initialState = {
-  clients: [], // You might want to initialize it as an empty array
+  clients: [],
 };
 
 const clientReducer = (state = initialState, action) => {
@@ -85,8 +92,26 @@ const clientReducer = (state = initialState, action) => {
         ...state,
         clients: action.clientList,
       };
+    case DELETE_CLIENT:
+      // Ensure state.clients is an array before applying filter
+      const clientsArray = Array.isArray(state.clients) ? state.clients : [];
+
+      const updatedClients = clientsArray.filter(
+        (client) => client.id !== action.deletedClient.id
+      );
+      return {
+        ...state,
+        clients: updatedClients,
+      };
+    case RESET_CLIENT_LIST:
+      const logoutState = {
+        ...state,
+        clients: null,
+      };
+      return logoutState;
     default:
       return state;
   }
 };
+
 export default clientReducer;

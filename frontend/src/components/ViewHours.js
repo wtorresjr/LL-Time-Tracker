@@ -13,7 +13,6 @@ const ViewHours = () => {
     (state) => state?.hoursReducer?.userHours?.All_Client_Pay
   );
 
-
   const [allPayLoaded, setAllPayLoaded] = useState(
     allPay !== null && allPay !== undefined
   );
@@ -25,8 +24,7 @@ const ViewHours = () => {
       setAllPayLoaded(allPay !== 0);
     };
     fetchData();
-  }, [dispatch, sessionUser, allPay]);
-  
+  }, [sessionUser, allPay, userHrs.length]);
 
   return (
     <div className="generalContainer">
