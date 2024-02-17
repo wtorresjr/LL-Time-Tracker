@@ -31,6 +31,7 @@ router.get("/", async (req, res) => {
             // required: false,
             attributes: ["day_worked", "total_hours", "id"],
             where,
+            // order: ["day_worked", "ASC"],
           },
         },
         attributes: ["firstName", "lastName"],
@@ -43,10 +44,14 @@ router.get("/", async (req, res) => {
         let hoursTab = 0;
         let hourlyRate = clientHours.clients[i].hourly_rate;
 
-        // console.log(client.hoursworkeds, "Client Hours from API Route");
+        const sortedHours = client.hoursworkeds.sort(
+          (a, b) => new Date(b.day_worked) - new Date(a.day_worked)
+        );
 
-        for (let j = 0; j < client.hoursworkeds.length; j++) {
-          let hours = client.hoursworkeds[j].total_hours;
+        for (let j = 0; j < sortedHours.length; j++) {
+          let hours = sortedHours[j].total_hours;
+          // for (let j = 0; j < client.hoursworkeds.length; j++) {
+          //   let hours = client.hoursworkeds[j].total_hours;
           hoursTab += parseFloat(hours);
         }
         client.setDataValue("TotalClientHours", hoursTab);
