@@ -56,7 +56,6 @@ router.get("/", async (req, res) => {
       clientHours.setDataValue("All_Client_Pay", parseFloat(allPay).toFixed(2));
 
       res.status(200).json(clientHours);
-      // console.log("Client Hours Output", clientHours);
     } else {
       res.status(401).json({ error: "Unauthorized - Login to continue" });
     }
@@ -74,7 +73,6 @@ router.post("/add-hours/:clientId", async (req, res) => {
 
   const { day_worked, start_time, end_time, total_hours } = req.body;
 
-  console.log(req.body, "<------ADD HOURS REQ BODY");
   try {
     if (req.user) {
       const addedHours = await hoursworked.create({
@@ -101,7 +99,6 @@ router.post("/add-hours/:clientId", async (req, res) => {
 
 router.delete("/delete-hours/:hoursId", async (req, res) => {
   const { hoursId } = req.params;
-  // console.log(+hoursId, "Hours ID to find");
   try {
     if (req.user) {
       const hoursToDelete = await hoursworked.findByPk(+hoursId, {
