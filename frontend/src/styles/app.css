@@ -63,7 +63,23 @@ form {
   font-weight: bolder;
   justify-content: space-between;
   width: 100%;
-  padding:0 20px 0 0
+  padding: 0 20px 0 0;
+}
+
+.accHeaderInner {
+  display: flex;
+  font-weight: bolder;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 20px 0 0;
+  align-items: center;
+}
+
+.accHeaderRight {
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
 
 .hrsDisplayRow {
