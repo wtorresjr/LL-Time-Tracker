@@ -13,24 +13,28 @@ const seedUsers = [
     hashedPassword: bcrypt.hashSync("password123"),
     firstName: "Demo",
     lastName: "User",
+    is_admin: true,
   },
   {
     email: "will@gmail.com",
     hashedPassword: bcrypt.hashSync("password1"),
     firstName: "Will",
     lastName: "Torres",
+    is_admin: true,
   },
   {
     email: "bella@gmail.com",
     hashedPassword: bcrypt.hashSync("password2"),
     firstName: "Isabella",
     lastName: "Howerton",
+    is_admin: false,
   },
   {
     email: "elisabeth@gmail.com",
     hashedPassword: bcrypt.hashSync("password3"),
     firstName: "Elisabeth",
     lastName: "Hayes",
+    is_admin: true,
   },
 ];
 

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { useState } from "react";
 import Container from "react-bootstrap/Container";
@@ -7,6 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { logout } from "../store/session";
 
 function NavItems() {
+  const sessionUser = useSelector((state) => state?.session?.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const [expanded, setExpanded] = useState(false);
@@ -85,6 +86,21 @@ function NavItems() {
                 Manage Clients
                 <i className="fa-regular fa-address-book fa-xl"></i>
               </NavLink>
+
+              {sessionUser && sessionUser?.is_admin && (
+                <NavLink
+                  to="/admin-hours"
+                  onClick={handleNavItemClick}
+                  className="navItemLinks"
+                  style={{
+                    backgroundColor: "orange",
+                  }}
+                >
+                  <i className="fa-regular fa-address-book fa-xl"></i>
+                  View Employee Hours
+                  <i className="fa-regular fa-address-book fa-xl"></i>
+                </NavLink>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

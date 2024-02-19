@@ -3,6 +3,79 @@ const router = express.Router();
 const { employee, hoursworked, client } = require("../../db/models");
 const { Op, Sequelize } = require("sequelize");
 
+router.get("/admin-view", async (req, res) => {
+  try {
+    if (req.user && req.user.is_admin === true) {
+      let employeeHours = await employee.findAll({
+        include: {
+          model: client,
+          attributes: ["client_initials", "hourly_rate"],
+          include: {
+            model: hoursworked,
+            attributes: ["day_worked", "total_hours"],
+          },
+        },
+        attributes: ["id"],
+      });
+
+      let allEmployeePay = 0;
+      let hoursBilled = 0;
+
+      for (let i = 0; i < employeeHours.length; i++) {
+        let employee = employeeHours[i];
+        let totalEmployeePay = 0;
+
+        for (let j = 0; j < employee.clients.length; j++) {
+          let hourlyRate = employee.clients[j].hourly_rate;
+          let clientHrs = 0;
+
+          for (let k = 0; k < employee.clients[j].hoursworkeds.length; k++) {
+            let hoursWkd = employee.clients[j].hoursworkeds[k];
+            clientHrs += hoursWkd.total_hours;
+            hoursBilled += hoursWkd.total_hours;
+          }
+          employee.clients[j].setDataValue(
+            "Hours_For_Client",
+            clientHrs.toFixed(2)
+          );
+          let clientOwes = clientHrs * hourlyRate;
+          totalEmployeePay += clientOwes;
+          allEmployeePay += clientOwes;
+          employee.clients[j].setDataValue(
+            "Client_Owes",
+            parseFloat(clientOwes.toFixed(2))
+          );
+        }
+        employee.setDataValue(
+          "Total_Employee_Pay",
+          totalEmployeePay.toFixed(2)
+        );
+      }
+
+      const empHoursObj = {
+        employeeHours,
+        Avg_Tech_Cost: parseFloat((allEmployeePay / hoursBilled).toFixed(2)),
+        Hours_To_Bill: parseFloat(hoursBilled.toFixed(2)),
+        Owed_To_Employees: parseFloat(allEmployeePay.toFixed(2)),
+      };
+
+      res.status(200).json(empHoursObj);
+    } else {
+      res.status(403).json("User does NOT have admin rights!!!");
+    }
+  } catch (err) {
+    let errors = [];
+
+    if (err.errors) {
+      errors = err.errors.map((er) => er.message);
+    } else {
+      errors.push(err.message);
+    }
+
+    res.json(errors);
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     if (req.user) {
@@ -50,8 +123,6 @@ router.get("/", async (req, res) => {
 
         for (let j = 0; j < sortedHours.length; j++) {
           let hours = sortedHours[j].total_hours;
-          // for (let j = 0; j < client.hoursworkeds.length; j++) {
-          //   let hours = client.hoursworkeds[j].total_hours;
           hoursTab += parseFloat(hours);
         }
         client.setDataValue("TotalClientHours", hoursTab);
