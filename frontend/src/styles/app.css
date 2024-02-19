@@ -76,10 +76,15 @@ form {
   align-items: center;
 }
 
+.accHeader2 {
+  border-top: 1px solid rgb(200, 200, 200);
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
 .accHeaderRight {
   display: flex;
   justify-content: right;
-  
+
   align-items: center;
 }
 
