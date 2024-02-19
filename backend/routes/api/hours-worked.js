@@ -34,7 +34,10 @@ router.get("/admin-view", async (req, res) => {
             clientHrs += hoursWkd.total_hours;
             hoursBilled += hoursWkd.total_hours;
           }
-          employee.clients[j].setDataValue("Hours_For_Client", clientHrs);
+          employee.clients[j].setDataValue(
+            "Hours_For_Client",
+            clientHrs.toFixed(2)
+          );
           let clientOwes = clientHrs * hourlyRate;
           totalEmployeePay += clientOwes;
           allEmployeePay += clientOwes;
@@ -120,8 +123,6 @@ router.get("/", async (req, res) => {
 
         for (let j = 0; j < sortedHours.length; j++) {
           let hours = sortedHours[j].total_hours;
-          // for (let j = 0; j < client.hoursworkeds.length; j++) {
-          //   let hours = client.hoursworkeds[j].total_hours;
           hoursTab += parseFloat(hours);
         }
         client.setDataValue("TotalClientHours", hoursTab);
