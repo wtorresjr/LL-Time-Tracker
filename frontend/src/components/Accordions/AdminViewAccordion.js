@@ -36,21 +36,25 @@ function AdminViewAccordion({ employeeHours }) {
                 <Accordion>
                   <Accordion.Header className="accHeader2">
                     <div className="accHeaderInner">
-                      <Badge bg="danger">
-                        Client: {client.client_initials}
-                      </Badge>
-                      Client Hourly Rate:
-                      <Badge bg="success" style={{ fontSize: "16px" }}>
-                        ${client?.hourly_rate}
-                      </Badge>
-                      Total Billable Hours:
-                      <Badge bg="warning" style={{ fontSize: "16px" }}>
-                        {client?.Hours_For_Client}
-                      </Badge>
-                      Bill To Client:
-                      <Badge bg="success" style={{ fontSize: "16px" }}>
-                        ${client?.Client_Owes}
-                      </Badge>
+                      <div className="leftHalfHeader">
+                        <Badge bg="danger">
+                          Client: {client.client_initials}
+                        </Badge>
+                        Client Hourly Rate:
+                        <Badge bg="success" style={{ fontSize: "16px" }}>
+                          ${client?.hourly_rate}
+                        </Badge>
+                      </div>
+                      <div className="rightHalfHeader">
+                        Billed Hours:
+                        <Badge bg="warning" style={{ fontSize: "16px" }}>
+                          {client?.Hours_For_Client}
+                        </Badge>
+                        Bill To Client:
+                        <Badge bg="success" style={{ fontSize: "16px" }}>
+                          ${client?.Client_Owes}
+                        </Badge>
+                      </div>
                     </div>
                   </Accordion.Header>
                   <Accordion.Body>
