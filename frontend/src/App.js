@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min.js";
 import React, { useEffect } from "react";
 import SignupForm from "../src/components/SignUpForm.js";
+import AdminViewHours from "./components/AdminViewHours.js";
 
 function App() {
   const sessionUser = useSelector((state) => state?.session?.user);
@@ -53,6 +54,13 @@ function App() {
         </Route>
         <Route exact path="/view-hours">
           {(sessionUser && <ViewHours />) || (
+            <h1>
+              <NavLink to="/">Log In</NavLink>
+            </h1>
+          )}
+        </Route>
+        <Route exact path="/admin-hours">
+          {(sessionUser && sessionUser?.is_admin && <AdminViewHours />) || (
             <h1>
               <NavLink to="/">Log In</NavLink>
             </h1>
