@@ -8,7 +8,7 @@ import Table from "react-bootstrap/Table";
 import "../../styles/app.css";
 
 function AdminViewAccordion({ employeeHours }) {
-  console.log(employeeHours, "<----------Employeed Hours");
+  // console.log(employeeHours, "<----------Employeed Hours");
 
   return employeeHours?.map((employee) => {
     return (
