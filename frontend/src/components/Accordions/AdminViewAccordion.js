@@ -108,9 +108,10 @@ function AdminViewAccordion({ employeeHours }) {
                                   style={{ width: "100%" }}
                                   onClick={(e) =>
                                     openConfirmDelete(
-                                      +day?.id,
+                                      // +day?.id,
+                                      day,
                                       day?.day_worked,
-                                      client,
+                                      client.client_initials,
                                       day?.total_hours,
                                       day
                                     )

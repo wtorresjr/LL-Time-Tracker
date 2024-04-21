@@ -12,7 +12,7 @@ router.get("/admin-view", async (req, res) => {
           attributes: ["client_initials", "hourly_rate"],
           include: {
             model: hoursworked,
-            attributes: ["day_worked", "total_hours"],
+            attributes: ["day_worked", "total_hours", "id"],
           },
         },
         attributes: ["id"],
