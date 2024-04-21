@@ -182,7 +182,10 @@ router.delete("/delete-hours/:hoursId", async (req, res) => {
       const hoursToDelete = await hoursworked.findByPk(+hoursId, {
         attributes: ["id", "employeeId"],
       });
-      if (hoursToDelete && hoursToDelete.employeeId === req.user.id) {
+      if (
+        (hoursToDelete && hoursToDelete.employeeId === req.user.id) ||
+        (hoursToDelete && req.user.is_admin)
+      ) {
         await hoursToDelete.destroy();
         return res.status(200).json({ message: "Successfully deleted" });
       } else {
