@@ -39,12 +39,12 @@ const PaidHoursModal = (props) => {
       await dispatch(fetchClientList(sessionUser));
     };
 
-    refreshData();
     if (props.dayid.length > 1) {
       setBulkDelete(true);
     } else {
       setBulkDelete(false);
     }
+    refreshData();
   }, [props?.dayid]);
 
   return (
