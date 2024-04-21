@@ -2,13 +2,31 @@ import Badge from "react-bootstrap/Badge";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-// import PaidHoursModal from "../OpenModalButton/PaidHoursModal";
-// import { useEffect, useState } from "react";
+import PaidHoursModal from "../OpenModalButton/PaidHoursModal";
+import { useEffect, useState } from "react";
 
 import "../../styles/app.css";
 
 function AdminViewAccordion({ employeeHours }) {
-  // console.log(employeeHours, "<----------Employeed Hours");
+  const [modalShow, setModalShow] = useState(false);
+  const [dayId, setDayId] = useState(0);
+  const [delDate, setDelDate] = useState(0);
+  const [clientInit, setClientInit] = useState(0);
+  const [totHours, setTotHours] = useState(0);
+  // const [emailHours, setEmailHours] = useState();
+
+  const openConfirmDelete = (dayId, delDate, clientInit, totHours, day) => {
+    console.log(dayId, "Day ID");
+    console.log(delDate, "Delete Date");
+    console.log(clientInit, "Client Init");
+    console.log(totHours, "Tot Hours");
+    console.log(day, "Day Info");
+    // setModalShow(true);
+    // setDelDate(delDate);
+    // setClientInit(clientInit);
+    // setDayId(dayId);
+    // setTotHours(totHours);
+  };
 
   return employeeHours?.map((employee) => {
     return (
@@ -88,14 +106,15 @@ function AdminViewAccordion({ employeeHours }) {
                                 <Button
                                   variant="danger"
                                   style={{ width: "100%" }}
-                                  // onClick={(e) =>
-                                  //   openConfirmDelete(
-                                  //     +day?.id,
-                                  //     day?.day_worked,
-                                  //     hours?.client_initials,
-                                  //     day?.total_hours
-                                  //   )
-                                  // }
+                                  onClick={(e) =>
+                                    openConfirmDelete(
+                                      +day?.id,
+                                      day?.day_worked,
+                                      client,
+                                      day?.total_hours,
+                                      day
+                                    )
+                                  }
                                 >
                                   Paid?
                                 </Button>

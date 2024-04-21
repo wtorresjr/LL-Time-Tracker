@@ -17,6 +17,7 @@ function ViewHoursAccordion({ userHrs }) {
   // const [hoursGroup, setHoursGroup] = useState();
 
   const openConfirmDelete = (dayId, delDate, clientInit, totHours) => {
+    console.log(userHrs)
     setModalShow(true);
     setDelDate(delDate);
     setClientInit(clientInit);
