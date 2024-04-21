@@ -3,7 +3,7 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import PaidHoursModal from "../OpenModalButton/PaidHoursModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import "../../styles/app.css";
 
@@ -13,7 +13,6 @@ function AdminViewAccordion({ employeeHours }) {
   const [delDate, setDelDate] = useState(0);
   const [clientInit, setClientInit] = useState(0);
   const [totHours, setTotHours] = useState(0);
-  // const [emailHours, setEmailHours] = useState();
 
   const openConfirmDelete = (dayId, delDate, clientInit, totHours) => {
     setModalShow(true);
